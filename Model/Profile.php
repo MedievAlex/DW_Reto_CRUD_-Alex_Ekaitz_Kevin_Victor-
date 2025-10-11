@@ -47,5 +47,5 @@ abstract class Profile
     return $this->telephone;
   }
 
-  abstract public function mostrar();
+  abstract public function show();
 }

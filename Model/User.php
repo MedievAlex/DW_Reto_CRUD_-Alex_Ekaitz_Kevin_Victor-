@@ -21,8 +21,8 @@ class User extends Profile
     return $this->cardNumber;
   }
 
-  public function mostrar()
+  public function show()
   {
-    return "[USER - " . parent::mostrar() . " - Gender: $this->gender - Card Number: $this->cardNumber]";
+    return "[USER - " . parent::show() . " - Gender: $this->gender - Card Number: $this->cardNumber]";
   }
 }

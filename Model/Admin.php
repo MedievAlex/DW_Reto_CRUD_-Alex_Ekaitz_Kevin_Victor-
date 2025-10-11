@@ -14,8 +14,8 @@ class Admin extends Profile
     return $this->currentAccount;
   }
 
-  public function mostrar()
+  public function show()
   {
-    return "[ADMIN - " . parent::mostrar() . " - Current Account: $this->currentAccount]";
+    return "[ADMIN - " . parent::show() . " - Current Account: $this->currentAccount]";
   }
 }
