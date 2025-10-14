@@ -1,38 +1,40 @@
 <?php
+include_once 'Gender.php';
+
 class User extends Profile
 {
-  private $gender;
-  private $cardNumber;
+  private $u_gender;
+  private $u_cardNumber;
 
-  public function __construct($email, $username, $password, $name, $lastname, $telephone, $gender, $cardNumber, $id = null)
+  public function __construct($p_email, $p_username, $p_password, $p_name, $p_lastname, $p_telephone, $u_gender, $u_cardNumber, $p_id = null)
   {
-    parent::__construct($id, $email, $username, $password, $name, $lastname, $telephone);
-    $this->gender = $gender;
-    $this->cardNumber = $cardNumber;
+    parent::__construct($p_id, $p_email, $p_username, $p_password, $p_name, $p_lastname, $p_telephone);
+    $this->u_gender = $u_gender;
+    $this->u_cardNumber = $u_cardNumber;
   }
 
   public function getGender()
   {
-    return $this->gender;
+    return $this->u_gender;
   }
 
   public function setGender($gender)
   {
-    $this->gender = $gender;
+    $this->u_gender = $gender;
   }
 
   public function getCardNumber()
   {
-    return $this->cardNumber;
+    return $this->u_cardNumber;
   }
 
   public function setCardNumber($cardNumber)
   {
-    $this->cardNumber = $cardNumber;
+    $this->u_cardNumber = $cardNumber;
   }
 
   public function show()
   {
-    return "[USER - " . parent::show() . " - Gender: $this->gender - Card Number: $this->cardNumber]";
+    return "[USER - " . parent::show() . " - Gender: $this->u_gender - Card Number: $this->u_cardNumber]";
   }
 }
