@@ -1,50 +1,83 @@
 <?php
 abstract class Profile
 {
-  protected $email;
-  protected $username;
-  protected $password;
-  protected $name;
-  protected $lastname;
-  protected $telephone;
+  protected $p_id;
+  protected $p_email;
+  protected $p_username;
+  protected $p_password;
+  protected $p_name;
+  protected $p_lastname;
+  protected $p_telephone;
 
-  public function __construct($email, $username, $name, $password, $lastname, $telephone)
+  protected function __construct($p_id, $p_email, $p_username, $p_password, $p_name, $p_lastname, $p_telephone)
   {
-    $this->email = $email;
-    $this->username = $username;
-    $this->password = $password;
-    $this->name = $name;
-    $this->lastname = $lastname;
-    $this->telephone = $telephone;
+    $this->p_id = $p_id;
+    $this->p_email = $p_email;
+    $this->p_username = $p_username;
+    $this->p_password = $p_password;
+    $this->p_name = $p_name;
+    $this->p_lastname = $p_lastname;
+    $this->p_telephone = $p_telephone;
   }
 
   public function getEmail()
   {
-    return $this->email;
+    return $this->p_email;
   }
+
+  public function setEmail($p_email)
+  {
+    $this->p_email = $p_email;
+  }
+
   public function getUsername()
   {
-    return $this->username;
+    return $this->p_username;
   }
+
+  public function setUsername($p_username)
+  {
+    $this->p_username = $p_username;
+  }
+
   public function getPassword()
   {
-    return $this->password;
+    return $this->p_password;
   }
-  public function setPassword($password)
+
+  public function setPassword($p_password)
   {
-    $this->password = $password;
+    $this->p_password = $p_password;
   }
+
   public function getName()
   {
-    return $this->name;
+    return $this->p_name;
   }
+
+  public function setName($p_name)
+  {
+    $this->p_name = $p_name;
+  }
+
   public function getLastname()
   {
-    return $this->lastname;
+    return $this->p_lastname;
   }
+
+  public function setLastname($p_lastname)
+  {
+    $this->p_lastname = $p_lastname;
+  }
+
   public function getTelephone()
   {
-    return $this->telephone;
+    return $this->p_telephone;
+  }
+
+  public function setTelephone($p_telephone)
+  {
+    $this->p_telephone = $p_telephone;
   }
 
   abstract public function show();
