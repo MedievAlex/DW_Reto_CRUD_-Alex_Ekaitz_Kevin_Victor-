@@ -1,17 +1,19 @@
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    gap: 10px;
-  }
-  
-  .inputs {
-    display: flex;
-    justify-content: space-between;
-  }  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 100px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  gap: 10px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+}  

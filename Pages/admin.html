@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Styles/main.css">
   <link rel="stylesheet" href="../Styles/admin.css">
-  <title>User</title>
+  <title>Admin</title>
 </head>
 
 <body>
@@ -24,14 +24,18 @@
 
   </header>
   <main>
+    <select id="" name="">
+      <option value="">-- Choose an user --</option>
+    </select>
+
     <form action="POST">
       <div class="inputs">
         <label for="username">USERNAME</label>
-        <input type="text" id="username" />
+        <input type="text" id="username" placeholder="exampleuser"/>
       </div>
       <div class="inputs">
         <label for="email">EMAIL</label>
-        <input type="email" id="email" />
+        <input type="email" id="email" placeholder="example@email.com"/>
       </div>
       <div class="inputs">
         <label for="password">PASSWORD</label>
@@ -39,15 +43,15 @@
       </div>
       <div class="inputs">
         <label for="name">NAME</label>
-        <input type="text" id="name" />
+        <input type="text" id="name" placeholder="examplename"/>
       </div>
       <div class="inputs">
         <label for="lastname">LASTNAME</label>
-        <input type="text" id="lastname" />
+        <input type="text" id="lastname" placeholder="examplelastname"/>
       </div>
       <div class="inputs">
         <label for="telephone">TELEPHONE</label>
-        <input type="text" id="telephone" />
+        <input type="text" id="telephone" placeholder="600 00 00 00"/>
       </div>
     </form>
   </main>
