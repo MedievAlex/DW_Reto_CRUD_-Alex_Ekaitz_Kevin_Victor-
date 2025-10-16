@@ -10,9 +10,62 @@
 
 <body>
   <header>
-    OUR WEBSITE
+    <div class="logo">
+      <img src="../Images/logo.webp" alt="Logo">
+    </div>
+    <div class="title">
+    <h1>Sign Up</h1>
+    </div>
   </header>
   <main>
+    <form action="POST">
+      <div class="inputs">
+        <label>USERNAME:</label>
+        <input type="text" id="username"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>EMAIL:</label>
+        <input type="email" id="email"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>PASSWORD:</label>
+        <input type="password" id="password"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>CONFIRM PASSWORD:</label>
+        <input type="password" id="confirm_password"><br>
+      </div>
+      <br>
+      <div class="inputs">
+      <label>NAME:</label>
+        <input type="text" id="name"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>LAST NAME:</label>
+        <input type="text" id="last_name"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>PHONE NUMBER:</label>
+        <input type="tel" id="phone"><br>
+      </div>
+      <br>
+      <div class="inputs">
+        <label>GENDER:</label>
+        <input type="radio" name="Gender" id="male">Male
+        <input type="radio" name="Gender" id="female">Female
+        <input type="radio" name="Gender" id="other">Other
+      </div>
+      <br>
+      <div class="buttons">
+        <button type="submit">SIGN UP</button>
+        <button type="reset">RESET</button>
+      </div>
+    </form>
   </main>
   <footer>
     &copy; Made by Us
