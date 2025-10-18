@@ -80,5 +80,10 @@ abstract class Profile
     $this->p_telephone = $p_telephone;
   }
 
+  public function toString()
+  {
+    return "ID: $this->p_id - Email: $this->p_email - Username: $this->p_username - Name: $this->p_name - Lastname: $this->p_lastname - Telephone: $this->p_telephone";
+  }
+
   abstract public function show();
 }
