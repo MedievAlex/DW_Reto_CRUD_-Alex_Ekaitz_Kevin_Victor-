@@ -8,14 +8,12 @@ async function uploadUsers() {
     } else{
         users.forEach(user => {
             const option = document.createElement('option');
-            option.value = user.id;
+            option.value = user.username; // Ponemos id? Necesitariamos crearle el get en la clase Profile
             option.textContent = user.name + " (" + user.email + ")";
             select.appendChild(option);
         });
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    uploadUsers();
-});
+document.addEventListener("DOMContentLoaded", uploadUsers);
   

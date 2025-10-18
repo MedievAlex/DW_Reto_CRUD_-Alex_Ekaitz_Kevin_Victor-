@@ -1,5 +1,6 @@
 <?php
 include_once 'Gender.php';
+include_once 'Profile.php';
 
 class User extends Profile
 {
