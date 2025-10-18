@@ -10,9 +10,11 @@ require_once '../Controller/UserController.php';
 $controller = new UserController();
 $users = $controller->searchAllUsers();
 
-if ($users) {
+if ($users && count($users) > 0) {
+    $userArray = [];
+
     foreach ($users as $user) {
-        echo json_encode([
+        $userArray[] = [
             'email' => $user->getEmail(),
             'username' => $user->getUsername(),
             'name' => $user->getName(),
@@ -20,8 +22,10 @@ if ($users) {
             'telephone' => $user->getTelephone(),
             'gender' => $user->getGender(),
             'card_number' => $user->getCardNumber()
-        ], JSON_UNESCAPED_UNICODE);
+        ];
     }
+
+    echo json_encode($userArray, JSON_UNESCAPED_UNICODE);
 } else {
     echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
 }
