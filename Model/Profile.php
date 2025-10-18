@@ -20,6 +20,16 @@ abstract class Profile
     $this->p_telephone = $p_telephone;
   }
 
+  public function getId()
+  {
+    return $this->p_id;
+  }
+
+  public function setId($p_id)
+  {
+    $this->p_id = $p_id;
+  }
+
   public function getEmail()
   {
     return $this->p_email;
