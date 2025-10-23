@@ -12,6 +12,10 @@ class UserController {
         $this->adminModel = new AdminModel($db);
     }
 
+    public function verifyUser() {
+        
+    }
+    
     public function searchAllUsers() {
         return $this->adminModel->getAllUsers();
     }
