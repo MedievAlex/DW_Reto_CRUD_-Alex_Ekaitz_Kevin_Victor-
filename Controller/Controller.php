@@ -23,7 +23,7 @@ class Controller {
         return $this->adminModel->dropUser();
     }
 
-    public function insertUser() {
+    public function createUser() {
         return $this->adminModel->insertUser();
     }
 }

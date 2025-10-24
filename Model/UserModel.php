@@ -13,14 +13,14 @@ class UserModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*public function dropUser($id) { Lo hizo copilot
+    public function deleteUser($id) { 
         $query = "DELETE FROM users WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id);
         return $stmt->execute();
-    }*/ 
+    } 
 
-    public function insertUser($data) {
+    public function createUser($data) {
         $query = "INSERT INTO users (username, email, password, name, lastname, telephone, gender, card_number) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
