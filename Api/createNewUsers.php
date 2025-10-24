@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
 require_once '../config/database.php';
-require_once '../controller/UserController.php';
+require_once '../controller/Controller.php';
 $database = new Database();
 $db = $database->getConnection();
 $userController = new UserController($db);
@@ -29,7 +29,10 @@ if (
     $userController->gender = $data->gender;
     $userController->card_number = $data->card_number;
 
-    if ($userController->createUser()) {
+    if ($userController->usernameExists()) {
+        http_response_code(400);
+        echo json_encode(array("message" => "Username already exists. Please choose a different username."));
+    } else if ($userController->createUser()) {
         http_response_code(201);
         echo json_encode(array("message" => "User created successfully."));
     } else {
