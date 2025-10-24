@@ -7,7 +7,7 @@ loginBtn.addEventListener("click", () => {
 });
 
 function verifyUser() {
-    const response = fetch('../Api/login.php');
+    const response = fetch(`../Api/login.php`);
 
 
 }
