@@ -6,8 +6,13 @@ loginBtn.addEventListener("click", () => {
     verifyUser()
 });
 
-function verifyUser() {
-    const response = fetch(`../Api/login.php`);
+async function verifyUser() {
+    const response = await fetch(`../Api/login.php`);
+    const user = response.json();
 
-
+    if (user.error) {
+        alert("Error fetching user: " + user.error);
+    } else{
+        userData = user;
+    }
 }
