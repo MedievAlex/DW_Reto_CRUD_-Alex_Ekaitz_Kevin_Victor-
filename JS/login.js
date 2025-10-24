@@ -14,5 +14,6 @@ async function verifyUser() {
         alert("Error fetching user: " + user.error);
     } else{
         userData = user;
+        
     }
 }
