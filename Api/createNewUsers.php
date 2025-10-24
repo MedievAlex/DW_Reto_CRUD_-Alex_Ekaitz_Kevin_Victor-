@@ -4,11 +4,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
-require_once '../config/database.php';
-require_once '../controller/UserController.php';
+require_once '../controller/Controller.php';
 $database = new Database();
 $db = $database->getConnection();
-$userController = new UserController($db);
+$userController = new Controller();
 $data = json_decode(file_get_contents("php://input"));
 if (
     !empty($data->username) &&
@@ -40,4 +39,3 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Incomplete data. Please provide username, email, and password."));
 }
-?>

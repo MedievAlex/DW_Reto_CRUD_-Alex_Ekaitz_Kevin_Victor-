@@ -1,14 +1,14 @@
 <?php
+require_once '../Controller/Controller.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
 
-require_once '../Controller/Controller.php';
-
 $controller = new Controller();
-$users = $controller->searchAllUsers();
+$users = $controller->getAllUsers();
 
 if ($users && count($users) > 0) {
     $userArray = [];
@@ -30,4 +30,3 @@ if ($users && count($users) > 0) {
 } else {
     echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
 }
-?>
