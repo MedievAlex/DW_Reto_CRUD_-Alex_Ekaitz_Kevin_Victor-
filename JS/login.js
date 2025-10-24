@@ -17,6 +17,5 @@ async function verifyUser(credential, passwd) {
         alert("Error fetching user: " + user.error);
     } else{
         userData = user;
-
     }
 }
