@@ -8,7 +8,7 @@ loginBtn.addEventListener("click", () =>
     passwd = document.getElementById('password').value;
     credential = document.getElementById('credential').value;
     
-    if(document.getElementById('credential').value == "" || document.getElementById('password').value == "")
+    if(document.getElementById('credential').value == " " || document.getElementById('password').value == " ")
     {
         alert("Los campos no pueden estar vacios.");
     }
@@ -25,7 +25,7 @@ async function verifyUser(credential, passwd)
 
     if (user.error) 
     {
-        alert("Error fetching user: " + user.error);
+        alert("Error verifying the user.");
     } 
     else
     {
