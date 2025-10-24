@@ -7,27 +7,28 @@ header('Content-Type: application/json; charset=utf-8');
 
 require_once '../Controller/Controller.php';
 
-$controller = new Controller();
-$result = $controller->deleteUser();
+var_dump($_GET); // Verifica si $_GET contiene datos
+$id = $_POST['id'] ?? '';
+var_dump($id);
+if ($id) {
+    $controller = new Controller();
+    $success = $controller->deleteUser($id);
 
-if ($users && count($users) > 0) {
-    $userArray = [];
-
-    foreach ($users as $user) {
-        $userArray[] = [
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'username' => $user->getUsername(),
-            'name' => $user->getName(),
-            'lastname' => $user->getLastname(),
-            'telephone' => $user->getTelephone(),
-            'gender' => $user->getGender(),
-            'card_number' => $user->getCardNumber()
-        ];
+    if ($success) {
+        echo json_encode([
+            "success" => true,
+            "message" => "User deleted successfully."
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Error deleting user."
+        ]);
     }
-
-    echo json_encode($userArray, JSON_UNESCAPED_UNICODE);
 } else {
-    echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
+    echo json_encode([
+        "success" => false,
+        "message" => "No se proporcionó ID."
+    ]);
 }
 ?>

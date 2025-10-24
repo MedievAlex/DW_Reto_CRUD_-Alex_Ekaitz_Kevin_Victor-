@@ -19,12 +19,12 @@ class Controller {
         return $this->adminModel->getAllUsers();
     }
 
-    public function deleteUser() {
-        return $this->adminModel->dropUser();
+    public function deleteUser($id) {
+        return $this->adminModel->dropUser($id);
     }
 
-    public function createUser() {
-        return $this->adminModel->insertUser();
-    }
+    /*public function createUser() {
+        return $this->userModel->insertUser();
+    }*/
 }
 ?>

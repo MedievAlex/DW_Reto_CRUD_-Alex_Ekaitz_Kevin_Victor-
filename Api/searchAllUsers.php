@@ -10,7 +10,15 @@ require_once '../Controller/Controller.php';
 $controller = new Controller();
 $users = $controller->searchAllUsers();
 
-if ($users && count($users) > 0) {
+if ($users === false) {
+    // Caso: Error al obtener los usuarios
+    echo json_encode(['error' => 'Error fetching users from the database'], JSON_UNESCAPED_UNICODE);
+} elseif (is_array($users) && count($users) === 0) {
+    // Caso: No hay usuarios disponibles
+    $arrayVacio[] = '';
+    echo json_encode([$arrayVacio, 'message' => 'No users available'], JSON_UNESCAPED_UNICODE);
+} else {
+    // Caso: Usuarios obtenidos correctamente
     $userArray = [];
 
     foreach ($users as $user) {
@@ -27,7 +35,5 @@ if ($users && count($users) > 0) {
     }
 
     echo json_encode($userArray, JSON_UNESCAPED_UNICODE);
-} else {
-    echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
 }
 ?>
