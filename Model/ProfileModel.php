@@ -8,7 +8,7 @@ class ProfileModel {
         $this->conn = $db;
     }
 
-    public function verifyUser() {
+    public function verifyUser(credential, passwd) {
         $query = "SELECT * FROM db_profile WHERE P_USERNAME = ? AND P_PASSWORD = ?";
         $stmt = $this->conn->prepare($query);
         $stmt.setString(1, user.getUsername());
@@ -31,7 +31,6 @@ class ProfileModel {
                 $row['U_CARD']);
               }
             }
-
         return $users;
     }
 }

@@ -8,7 +8,7 @@ header('Content-Type: application/json; charset=utf-8');
 require_once '../Controller/UserController.php';
 
 $controller = new Controller();
-$users = $controller->verifyUser();
+$users = $controller->verifyUser(credential, passwd);
 
 
 ?>
