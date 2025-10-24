@@ -2,20 +2,20 @@ let usersData = [];
 //let selectedUserData = [];//para activar el boton de guardar cambios
 
 async function uploadUsers() {
-    const response = await fetch(`../Api/searchAllUsers.php`);
-    const users = await response.json();
-    const select = document.getElementById('userSelect');
+    try {
+        const response = await fetch('../Api/searchAllUsers.php');
+        const users = await response.json();
+        const select = document.getElementById('userSelect');
 
-    if (users.error) {
-        alert("Error fetching users: " + users.error);
-    } else{
         usersData = users;
         users.forEach(user => {
             const option = document.createElement('option');
-            option.value = user.id; // Ponemos id? Necesitariamos crearle el get en la clase Profile
+            option.value = user.id;
             option.textContent = user.name + " (" + user.email + ")";
             select.appendChild(option);
         });
+    } catch (error) {
+        alert("Error fetching users:", error);
     }
 }
 
@@ -52,22 +52,22 @@ function showUsersData() {
 }
 
 async function deleteUser() { //Trabajando en el metodo todavia
-    if (!confirm("Are you sure you want to delete this user?")) {
+    if (confirm("Are you sure you want to delete this user?")) {
         return;
     } else {
-        const select = document.getElementById('userSelect');
-        const selectId = select.value;
+        try {
+            const select = document.getElementById('userSelect');
+            const selectId = select.value;
 
-        const response = await fetch(`../Api/deleteUser.php?id=${encodeURIComponent(selectId)}`, {
-            method: 'DELETE'
-        });
-        const users = await response.json();
-        
-        if (users.error) {
-            alert("Error deleting user: " + users.error);
-        } else{
+            const response = await fetch(`../Api/deleteUser.php?id=${encodeURIComponent(selectId)}`, {
+                method: 'DELETE'
+            });
+            const users = await response.json();
+            
             alert("User deleted successfully.");
             location.reload();
+        } catch (error) {
+            alert("Error deleting user:", error);
         }
     }
 }
