@@ -1,7 +1,7 @@
 <?php
 require_once 'User.php';
 
-class AdminModel
+class DBImplementation
 {
     private $conn;
 
@@ -22,6 +22,32 @@ class AdminModel
             $users[] = new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['U_CARD'], $row['P_ID']);
         }
         return $users;
+    }
+
+    public function createUser($user)
+    {
+        $query = "INSERT INTO db_profile (P_EMAIL, P_USERNAME, P_PASSWORD, P_NAME, P_LASTNAME, P_TELEPHONE) VALUES (?, ?, ?, ?, ?, ?);";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            $user->getEmail(),
+            $user->getUsername(),
+            $user->getPassword(),
+            $user->getName(),
+            $user->getLastname(),
+            $user->getTelephone()
+        ]);
+
+        $lastInsertId = $this->conn->lastInsertId();
+
+        $query2 = "INSERT INTO db_user (U_ID, U_GENDER) VALUES (?, ?);";
+
+        $stmt2 = $this->conn->prepare($query2);
+        $stmt2->execute([$lastInsertId, $user->getGender()]);
+
+        $user->setId($lastInsertId);
+
+        return $user;
     }
 
     public function deleteUser($id)

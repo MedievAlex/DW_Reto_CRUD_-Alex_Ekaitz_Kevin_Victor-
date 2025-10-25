@@ -1,31 +1,31 @@
 <?php
 require_once '../config/Database.php';
-require_once '../model/AdminModel.php';
+require_once '../model/DBImplementation.php';
 
 
 class Controller
 {
-    private $adminModel;
+    private $dBImplementation;
 
     public function __construct()
     {
         $database = new Database();
         $db = $database->getConnection();
-        $this->adminModel = new AdminModel($db);
+        $this->dBImplementation = new DBImplementation($db);
     }
 
     public function getAllUsers()
     {
-        return $this->adminModel->getAllUsers();
+        return $this->dBImplementation->getAllUsers();
     }
 
-    /* public function createUsers()
+    public function createUser($user)
     {
-        return $this->adminModel->createUser();
-    } */
+        return $this->dBImplementation->createUser($user);
+    }
 
     public function deleteUser($id)
     {
-        return $this->adminModel->deleteUser($id);
+        return $this->dBImplementation->deleteUser($id);
     }
 }

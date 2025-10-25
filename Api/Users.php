@@ -21,8 +21,7 @@ if ($users && count($users) > 0) {
             'name' => $user->getName(),
             'lastname' => $user->getLastname(),
             'telephone' => $user->getTelephone(),
-            'gender' => $user->getGender(),
-            'card_number' => $user->getCardNumber()
+            'gender' => $user->getGender()
         ];
     }
 

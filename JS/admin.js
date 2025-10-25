@@ -84,9 +84,10 @@ async function deleteUser(event) {
 document.addEventListener("DOMContentLoaded", () => {
   uploadUsers();
 
-  const select = document.getElementById("userSelect");
-  select.addEventListener("change", showUsersData);
-
-  const deleteButton = document.getElementById("deleteUserButton");
-  deleteButton.addEventListener("click", deleteUser);
+  document
+    .getElementById("userSelect")
+    .addEventListener("change", showUsersData);
+  document
+    .getElementById("deleteUserButton")
+    .addEventListener("click", deleteUser);
 });
