@@ -16,43 +16,43 @@
       <img src="../Images/logo.webp" alt="Logo">
     </div>
     <div class="title">
-    <h1>Sign Up</h1>
+      <h1>Sign Up</h1>
     </div>
   </header>
   <main>
-    <form action="POST">
+    <form id="signup-form" method="POST">
       <div class="inputs">
         <label for="username">USERNAME:</label>
-        <input type="text" id="username">
+        <input type="text" id="username" name="username" required>
       </div>
       <div class="inputs">
         <label for="email">EMAIL:</label>
-        <input type="email" id="email">
+        <input type="email" id="email" name="email" required>
       </div>
       <div class="inputs">
         <label for="password">PASSWORD:</label>
-        <input type="password" id="password">
+        <input type="password" id="password" name="password" required>
       </div>
       <div class="inputs">
         <label for="name">NAME:</label>
-        <input type="text" id="name">
+        <input type="text" id="name" name="name" required>
       </div>
       <div class="inputs">
         <label for="last_name">LAST NAME:</label>
-        <input type="text" id="last_name">
+        <input type="text" id="lastname" name="lastname" required>
       </div>
       <div class="inputs">
-        <label for="phone">TELEPHONE:</label>
-        <input type="tel" id="phone">
+        <label for="telephone">TELEPHONE:</label>
+        <input type="tel" id="telephone" name="telephone" pattern="[0-9]{9}" required>
       </div>
       <div class="inputs">
         <label>GENDER:</label>
-        <input type="radio" name="Gender" id="male" checked>Male
-        <input type="radio" name="Gender" id="female">Female
-        <input type="radio" name="Gender" id="other">Other
+        <input type="radio" name="gender" id="male" value="MALE" checked>Male
+        <input type="radio" name="gender" id="female" value="FEMALE">Female
+        <input type="radio" name="gender" id="other" value="OTHER">Other
       </div>
       <div class="buttons">
-        <button>SIGN UP</button>
+        <button id="signUpUserButton">SIGN UP</button>
         <input type="reset" value="RESET">
       </div>
       <div class="login">
@@ -64,4 +64,5 @@
     &copy; Made by Us
   </footer>
 </body>
+
 </html>
