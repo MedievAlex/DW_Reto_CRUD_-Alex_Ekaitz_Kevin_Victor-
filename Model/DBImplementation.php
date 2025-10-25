@@ -20,6 +20,8 @@ class DBImplementation
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $users[] = new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
         }
+
+        return $users;
     }
 
     public function createUser($user)
