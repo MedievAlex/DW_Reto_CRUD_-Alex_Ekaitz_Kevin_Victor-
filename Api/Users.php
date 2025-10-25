@@ -10,9 +10,9 @@ header('Content-Type: application/json; charset=utf-8');
 $controller = new Controller();
 $users = $controller->getAllUsers();
 
-if ($users && count($users) > 0) {
-    $userArray = [];
+$userArray = [];
 
+if ($users && count($users) > 0) {
     foreach ($users as $user) {
         $userArray[] = [
             'id' => $user->getId(),
@@ -24,8 +24,6 @@ if ($users && count($users) > 0) {
             'gender' => $user->getGender()
         ];
     }
-
-    echo json_encode($userArray, JSON_UNESCAPED_UNICODE);
-} else {
-    echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
 }
+
+echo json_encode($userArray, JSON_UNESCAPED_UNICODE);

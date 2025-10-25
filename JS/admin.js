@@ -7,15 +7,29 @@ async function uploadUsers() {
     const users = await response.json();
     const select = document.getElementById("userSelect");
 
-    usersData = users;
-    users.forEach((user) => {
-      const option = document.createElement("option");
-      option.value = user.id;
-      option.textContent = user.name + " (" + user.email + ")";
-      select.appendChild(option);
-    });
+    select.innerHTML = "";
+
+    if (!users || users.length === 0) {
+      select.innerHTML =
+        '<option value="" selected>-- No users available --</option>';
+
+      document.getElementById("deleteUserButton").disabled = true;
+      document.getElementById("saveChangesButton").disabled = true;
+    } else {
+      select.innerHTML =
+        '<option value="" selected>-- Choose an user --</option>';
+      usersData = users;
+
+      users.forEach((user) => {
+        const option = document.createElement("option");
+        option.value = user.id;
+        option.textContent = user.name + " (" + user.email + ")";
+        select.appendChild(option);
+      });
+    }
   } catch (error) {
-    alert("Error fetching users:", error);
+    console.error("Error fetching users:", error);
+    alert("Error loading users: " + error.message);
   }
 }
 
