@@ -21,25 +21,25 @@
       <h1>USER</h1>
     </div>
     <div class="user">
-      <span>Usuario</span>
+      <span id="profile"></span>
       <a href="#" id="logoutLink">LOG OUT</a>
     </div>
 
   </header>
   <main>
-    <form method="post">
+    <form>
       <div class="inputs">
         <label for="username">USERNAME</label>
-        <input type="text" id="username" placeholder="exampleuser" />
+        <input type="text" id="username" name="username" />
       </div>
       <div class="inputs">
         <label for="email">EMAIL</label>
-        <input type="email" id="email" placeholder="example@email.com" />
+        <input type="email" id="email" name="email" />
       </div>
       <div class="inputs">
         <label for="password">PASSWORD</label>
-        <input type="password" id="password" />
-        <i id="visibilityBtn">
+        <input type="password" id="password" name="password" />
+        <i id="visibilityButton">
           <span id="icon" class="material-symbols-outlined">
             visibility
           </span>
@@ -47,19 +47,25 @@
       </div>
       <div class="inputs">
         <label for="name">NAME</label>
-        <input type="text" id="name" placeholder="examplename" />
+        <input type="text" id="name" name="name" />
       </div>
       <div class="inputs">
         <label for="lastname">LASTNAME</label>
-        <input type="text" id="lastname" placeholder="examplelastname" />
+        <input type="text" id="lastname" name="lastname" />
       </div>
       <div class="inputs">
         <label for="telephone">TELEPHONE</label>
-        <input type="text" id="telephone" placeholder="600 00 00 00" />
+        <input type="text" id="telephone" name="telephone" />
+      </div>
+      <div class="inputs">
+        <label for="gender">GENDER</label>
+        <input type="radio" name="gender" id="male" value="MALE">Male
+        <input type="radio" name="gender" id="female" value="FEMALE">Female
+        <input type="radio" name="gender" id="other" value="OTHER">Other
       </div>
       <div class="buttons">
-        <button id="deleteUser">DELETE USER</button>
-        <button id="saveChanges">SAVE CHANGES</button>
+        <button id="deleteUserButton">DELETE USER</button>
+        <button id="saveChangesButton">SAVE CHANGES</button>
       </div>
     </form>
   </main>
