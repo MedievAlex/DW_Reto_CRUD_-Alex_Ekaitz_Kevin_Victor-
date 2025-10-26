@@ -13,10 +13,11 @@ async function createUser(event) {
     const result = await response.json();
 
     if (result.success) {
-      alert("User created successfully!");
+      localStorage.setItem("type", "user");
+      localStorage.setItem("id", result.user.id);
       window.location.href = "user.html";
     } else {
-      alert("Error: " + (result.error || result.message));
+      alert("Error: " + result.message);
     }
   } catch (error) {
     alert("An error occurred while creating the user.");
@@ -24,6 +25,15 @@ async function createUser(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const userType = localStorage.getItem("type");
+  if (userType === "admin") {
+    window.location.href = "admin.html";
+    return;
+  } else if (userType === "user") {
+    window.location.href = "user.html";
+    return;
+  }
+
   document.getElementById("signup-form").addEventListener("submit", createUser);
 
   document.getElementById("telephone").addEventListener("input", function () {

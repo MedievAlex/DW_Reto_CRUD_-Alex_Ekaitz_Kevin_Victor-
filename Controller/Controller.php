@@ -14,6 +14,16 @@ class Controller
         $this->dBImplementation = new DBImplementation($db);
     }
 
+    public function login($credential, $password)
+    {
+        return $this->dBImplementation->login($credential, $password);
+    }
+
+    public function getUser($id)
+    {
+        return $this->dBImplementation->getUser($id);
+    }
+
     public function getAllUsers()
     {
         return $this->dBImplementation->getAllUsers();

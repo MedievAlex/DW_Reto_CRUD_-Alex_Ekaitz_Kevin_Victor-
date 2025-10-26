@@ -1,22 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+<!------------------------------------------- [ HEAD: Start ] ------------------------------------------->
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Styles/main.css">
-  <title>Login</title>
+  <link rel="stylesheet" href="Styles/main.css"> <!-- css -->
+  <link rel="stylesheet" href="Styles/login.css"> <!-- css -->
+  <script src="JS/login.js" defer></script> <!-- JavaScript -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <title>Log-In</title>
 </head>
+<!------------------------------------------- [ HEAD: End ] ------------------------------------------->
+
+<!------------------------------------------- [ BODY: Start ] ------------------------------------------->
 
 <body>
+  <!------------------------------------------ [ HEADER: Start ] ------------------------------------------>
   <header>
-    OUR WEBSITE
+    <div class="logo">
+      <img src="Images/logo.webp" alt="Logo">
+    </div>
+    <div class="title">
+      <h1>LOGIN</h1>
+    </div>
   </header>
+  <!------------------------------------------- [ HEADER: End ] ------------------------------------------->
+  <!------------------------------------------- [ MAIN: Start ] ------------------------------------------->
   <main>
+    <!------------------------------------------ [ SECTION: Start ] ------------------------------------------>
+    <section>
+      <form id="login-form" method="post">
+        <div class="inputs"> <!-- Credential (Username, Email) -->
+          <span class="material-symbols-outlined"> account_box </span>
+          <input type="text" id="credential" name="credential" placeholder="user or email" required />
+        </div>
+        <div class="inputs"> <!-- Credential (Password) -->
+          <span class="material-symbols-outlined"> lock </span>
+          <input type="password" id="password" name="password" placeholder="password" required />
+        </div>
+        <div class="buttons"> <!-- Button LOG IN -->
+          <button id="loginBtn">LOG IN</button>
+        </div>
+        <div class="signup"> <!-- SIGN UP link -->
+          <a href="Pages/signup.html">If you don't have an account? <span>SIGN UP</span></a>
+        </div>
+      </form>
+    </section>
+    <!----------------------------------------- [ SECTION: End ] ----------------------------------------->
   </main>
+  <!------------------------------------------- [ MAIN: End ] ------------------------------------------->
   <footer>
-    &copy; Made by Us
+    <span>&copy; Made by Alex, Ekaitz, Kevin & Victor</span>
   </footer>
 </body>
+<!------------------------------------------- [ BODY: End ] ------------------------------------------->
 
 </html>

@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -16,30 +16,37 @@ $controller = new Controller();
 
 switch ($method) {
     case 'GET':
-        // 'page' => $user instanceof User ? 'user.html' : 'admin.html'
+        $id = $_GET['id'] ?? null;
 
-        /* $user = $controller->searchUser();
+        try {
+            $user = $controller->getUser($id);
 
-        if ($user != null) {
-            $userJson = [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'username' => $user->getUsername(),
-                'name' => $user->getName(),
-                'lastname' => $user->getLastname(),
-                'telephone' => $user->getTelephone(),
-                'gender' => $user->getGender(),
-                'card_number' => $user->getCardNumber()
-            ];
-            echo json_encode($userJson, JSON_UNESCAPED_UNICODE);
-        } else {
-            echo json_encode(['error' => 'Error fetching user'], JSON_UNESCAPED_UNICODE);
-        } */
+            if ($user) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'User retrieved successfully',
+                    'user' => [
+                        'id' => $user->getId(),
+                        'email' => $user->getEmail(),
+                        'username' => $user->getUsername(),
+                        'password' => $user->getPassword(),
+                        'name' => $user->getName(),
+                        'lastname' => $user->getLastname(),
+                        'telephone' => $user->getTelephone(),
+                        'gender' => $user->getGender()
+                    ]
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'User not found'], JSON_UNESCAPED_UNICODE);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error getting user: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
         break;
 
     case 'POST':
         try {
-            $userObj = new User(
+            $user = new User(
                 $_POST['email'] ?? '',
                 $_POST['username'] ?? '',
                 $_POST['password'] ?? '',
@@ -49,25 +56,28 @@ switch ($method) {
                 $_POST['gender'] ?? 'MALE'
             );
 
-            $user = $controller->createUser($userObj);
+            $result = $controller->createUser($user);
 
-            if ($user) {
+            if ($result) {
                 echo json_encode([
                     'success' => true,
                     'message' => 'User created successfully',
-                    'id' => $user->getId(),
-                    'email' => $user->getEmail(),
-                    'username' => $user->getUsername(),
-                    'name' => $user->getName(),
-                    'lastname' => $user->getLastname(),
-                    'telephone' => $user->getTelephone(),
-                    'gender' => $user->getGender()
+                    'user' => [
+                        'id' => $result->getId(),
+                        'email' => $result->getEmail(),
+                        'username' => $result->getUsername(),
+                        'password' => $result->getPassword(),
+                        'name' => $result->getName(),
+                        'lastname' => $result->getLastname(),
+                        'telephone' => $result->getTelephone(),
+                        'gender' => $result->getGender()
+                    ]
                 ], JSON_UNESCAPED_UNICODE);
             } else {
-                echo json_encode(['success' => false, 'error' => 'Error creating user'], JSON_UNESCAPED_UNICODE);
+                echo json_encode(['success' => false, 'message' => 'Error creating user'], JSON_UNESCAPED_UNICODE);
             }
         } catch (Exception $e) {
-            echo json_encode(['success' => false, 'error' => 'Exception: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
         }
         break;
 
@@ -102,6 +112,6 @@ switch ($method) {
         break;
 
     default:
-        echo json_encode(['message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
         break;
 }
