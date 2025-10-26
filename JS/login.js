@@ -17,9 +17,10 @@ async function login(event) {
 
       localStorage.setItem("type", userType);
       localStorage.setItem("id", result.profile.id);
+      localStorage.setItem("username", result.profile.username);
       window.location.href = `Pages/${userType}.html`;
     } else {
-      alert("Error: " + result.message);
+      alert(result.message);
     }
   } catch (error) {
     alert("An error occurred while logging in.");

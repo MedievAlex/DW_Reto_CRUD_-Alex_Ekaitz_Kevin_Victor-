@@ -1,14 +1,30 @@
-const visibilityBtn = document.getElementById("visibilityBtn");
-const deleteUserBtn = document.getElementById("deleteUser");
-const saveChangesBtn = document.getElementById("saveChanges");
+async function showUserData() {
+  const userId = localStorage.getItem("id");
 
-visibilityBtn.addEventListener("click", () => {
-  toggleVisibility();
-});
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(userId)}`
+    );
 
-deleteUserBtn.addEventListener("click", () => {});
+    const result = await response.json();
 
-saveChangesBtn.addEventListener("click", () => {});
+    if (result.success) {
+      document.getElementById("username").value = result.user.username;
+      document.getElementById("email").value = result.user.email;
+      document.getElementById("password").value = result.user.password;
+      document.getElementById("name").value = result.user.name;
+      document.getElementById("lastname").value = result.user.lastname;
+      document.getElementById("telephone").value = result.user.telephone;
+      document.querySelector(
+        `input[name="gender"][value="${result.user.gender}"]`
+      ).checked = true;
+    } else {
+      alert(result.message);
+    }
+  } catch (error) {
+    alert("Error fetching user data:", error);
+  }
+}
 
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
@@ -32,6 +48,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  document.getElementById("profile").textContent =
+    localStorage.getItem("username");
+
+  showUserData();
+
+  document.getElementById("visibilityButton").addEventListener("click", () => {
+    toggleVisibility();
+  });
+
+  document.getElementById("deleteUserButton").addEventListener("click", () => {
+    deleteUser();
+  });
+
+  document
+    .getElementById("saveChangesButton")
+    .addEventListener("click", () => {});
+
   document
     .getElementById("logoutLink")
     .addEventListener("click", function (event) {
@@ -43,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStorage.removeItem("type");
       localStorage.removeItem("id");
+      localStorage.removeItem("username");
       window.location.href = "../index.html";
     });
 });

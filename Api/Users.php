@@ -18,6 +18,7 @@ if ($users && count($users) > 0) {
             'id' => $user->getId(),
             'email' => $user->getEmail(),
             'username' => $user->getUsername(),
+            'password' => $user->getPassword(),
             'name' => $user->getName(),
             'lastname' => $user->getLastname(),
             'telephone' => $user->getTelephone(),

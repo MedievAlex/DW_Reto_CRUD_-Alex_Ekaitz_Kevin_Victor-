@@ -95,6 +95,8 @@ async function deleteUser(event) {
   }
 }
 
+async function saveChanges(event) {}
+
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {
@@ -105,14 +107,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  document.getElementById("profile").textContent =
+    localStorage.getItem("username");
+
   uploadUsers();
 
   document
     .getElementById("userSelect")
     .addEventListener("change", showUsersData);
+
   document
     .getElementById("deleteUserButton")
     .addEventListener("click", deleteUser);
+
+  document
+    .getElementById("saveChangesButton")
+    .addEventListener("click", saveChanges);
 
   document
     .getElementById("logoutLink")
@@ -125,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       localStorage.removeItem("type");
       localStorage.removeItem("id");
+      localStorage.removeItem("username");
       window.location.href = "../index.html";
     });
 });

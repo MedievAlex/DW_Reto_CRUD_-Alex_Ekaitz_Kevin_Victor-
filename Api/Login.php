@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'message' => 'Login successful',
         'profile' => [
           'type' => $result instanceof User ? 'user' : 'admin',
-          'id' => $result->getId()
+          'id' => $result->getId(),
+          'username' => $result->getUsername()
         ]
       ], JSON_UNESCAPED_UNICODE);
     } else {
