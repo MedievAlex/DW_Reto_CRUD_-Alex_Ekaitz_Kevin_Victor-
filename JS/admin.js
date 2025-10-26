@@ -96,6 +96,15 @@ async function deleteUser(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const type = localStorage.getItem("type");
+  if (!type) {
+    window.location.href = "../index.html";
+    return; // Para que no ejecute el resto del código
+  } else if (type === "user") {
+    window.location.href = "user.html";
+    return;
+  }
+
   uploadUsers();
 
   document
@@ -104,4 +113,18 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("deleteUserButton")
     .addEventListener("click", deleteUser);
+
+  document
+    .getElementById("logoutLink")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+
+      if (!confirm("Are you sure you want to log out?")) {
+        return;
+      }
+
+      localStorage.removeItem("type");
+      localStorage.removeItem("id");
+      window.location.href = "../index.html";
+    });
 });
