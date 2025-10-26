@@ -15,6 +15,7 @@ async function createUser(event) {
     if (result.success) {
       localStorage.setItem("type", "user");
       localStorage.setItem("id", result.user.id);
+      localStorage.setItem("username", result.user.username);
       window.location.href = "user.html";
     } else {
       alert("Error: " + result.message);
