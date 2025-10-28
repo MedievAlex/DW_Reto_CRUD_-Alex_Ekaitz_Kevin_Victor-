@@ -27,7 +27,7 @@ async function showUserData() {
 }
 
 async function deleteUser(event) {
-  const selectId = localStorage.getItem("id");
+  const userId = localStorage.getItem("id");
 
   event.preventDefault();
 
@@ -37,7 +37,7 @@ async function deleteUser(event) {
 
   try {
     const response = await fetch(
-      `../Api/User.php?id=${encodeURIComponent(selectId)}`,
+      `../Api/User.php?id=${encodeURIComponent(userId)}`,
       {
         method: "DELETE",
       }
@@ -55,8 +55,6 @@ async function deleteUser(event) {
     alert("Error deleting user:", error);
   }
 }
-
-async function saveChanges() {}
 
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
@@ -95,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document
     .getElementById("saveChangesButton")
-    .addEventListener("click", saveChanges());
+    .addEventListener("click", saveChanges);
 
   document
     .getElementById("logoutLink")
