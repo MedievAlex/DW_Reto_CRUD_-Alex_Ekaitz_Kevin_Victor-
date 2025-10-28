@@ -56,9 +56,29 @@ async function deleteUser(event) {
   }
 }
 
-function saveChanges(event) {
+async function saveChanges(event) {
+  const userId = localStorage.getItem("id");
+
   event.preventDefault();
-  console.log("Save changes clicked");
+
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(userId)}`,
+      {
+        method: "PUT",
+        body: new URLSearchParams(formData), // Convertir FormData a URLSearchParams porque usamos PUT
+      }
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+  } catch (error) {
+    alert("Error saving changes:", error);
+  }
 }
 
 function toggleVisibility() {
