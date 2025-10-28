@@ -26,6 +26,38 @@ async function showUserData() {
   }
 }
 
+async function deleteUser(event) {
+  const selectId = localStorage.getItem("id");
+
+  event.preventDefault();
+
+  if (!confirm("Are you sure you want to delete your account?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(selectId)}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      localStorage.removeItem("type");
+      localStorage.removeItem("id");
+      localStorage.removeItem("username");
+      window.location.href = "../index.html";
+    }
+  } catch (error) {
+    alert("Error deleting user:", error);
+  }
+}
+
+async function saveChanges() {}
+
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
@@ -57,13 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleVisibility();
   });
 
-  document.getElementById("deleteUserButton").addEventListener("click", () => {
-    deleteUser();
-  });
+  document
+    .getElementById("deleteUserButton")
+    .addEventListener("click", deleteUser);
 
   document
     .getElementById("saveChangesButton")
-    .addEventListener("click", () => {});
+    .addEventListener("click", saveChanges());
 
   document
     .getElementById("logoutLink")

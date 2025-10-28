@@ -56,6 +56,9 @@ function showUsersData() {
       document.getElementById("name").value = user.name;
       document.getElementById("lastname").value = user.lastname;
       document.getElementById("telephone").value = user.telephone;
+      document.querySelector(
+        `input[name="gender"][value="${user.gender}"]`
+      ).checked = true;
     }
 
     document.getElementById("deleteUserButton").disabled = false;
