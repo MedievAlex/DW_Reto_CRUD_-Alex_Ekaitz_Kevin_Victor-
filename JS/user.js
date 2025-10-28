@@ -26,6 +26,36 @@ async function showUserData() {
   }
 }
 
+async function deleteUser(event) {
+  const userId = localStorage.getItem("id");
+
+  event.preventDefault();
+
+  if (!confirm("Are you sure you want to delete your account?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(userId)}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      localStorage.removeItem("type");
+      localStorage.removeItem("id");
+      localStorage.removeItem("username");
+      window.location.href = "../index.html";
+    }
+  } catch (error) {
+    alert("Error deleting user:", error);
+  }
+}
+
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
@@ -80,3 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "../index.html";
     });
 });
+
