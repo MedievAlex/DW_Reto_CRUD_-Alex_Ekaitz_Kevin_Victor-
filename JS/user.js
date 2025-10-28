@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleVisibility();
   });
 
-  document.getElementById("deleteUserButton").addEventListener("click", deleteUser});
+  document.getElementById("deleteUserButton").addEventListener("click", deleteUser);
 
   document
     .getElementById("saveChangesButton")
