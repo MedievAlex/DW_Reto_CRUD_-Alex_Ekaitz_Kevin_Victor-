@@ -86,7 +86,8 @@ async function deleteUser(event) {
     alert(result.message);
 
     if (result.success) {
-      location.reload();
+      await uploadUsers();
+      showUsersData();
     }
   } catch (error) {
     alert("Error deleting user:", error);
