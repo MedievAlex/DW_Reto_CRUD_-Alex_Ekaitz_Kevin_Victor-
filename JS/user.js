@@ -56,6 +56,11 @@ async function deleteUser(event) {
   }
 }
 
+function saveChanges(event) {
+  event.preventDefault();
+  console.log("Save changes clicked");
+}
+
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
