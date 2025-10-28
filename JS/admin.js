@@ -92,6 +92,18 @@ async function deleteUser(event) {
 
     if (result.success) {
       location.reload();
+      document.getElementById("username").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("lastname").value = "";
+      document.getElementById("telephone").value = "";
+      document.querySelector(
+        `input[type=radio]:checked`
+      ).checked = false;
+
+      document.getElementById("deleteUserButton").disabled = true;
+      document.getElementById("saveChangesButton").disabled = true;
     }
   } catch (error) {
     alert("Error deleting user:", error);
