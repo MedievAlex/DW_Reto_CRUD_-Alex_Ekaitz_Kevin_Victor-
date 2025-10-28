@@ -64,26 +64,53 @@ switch ($method) {
                     'message' => 'User created successfully',
                     'user' => [
                         'id' => $result->getId(),
-                        'email' => $result->getEmail(),
                         'username' => $result->getUsername(),
-                        'password' => $result->getPassword(),
-                        'name' => $result->getName(),
-                        'lastname' => $result->getLastname(),
-                        'telephone' => $result->getTelephone(),
-                        'gender' => $result->getGender()
                     ]
                 ], JSON_UNESCAPED_UNICODE);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error creating user'], JSON_UNESCAPED_UNICODE);
             }
         } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            echo json_encode(['success' => false, 'message' => 'Error creating user: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
         }
         break;
 
     case 'PUT':
-        // Implementar actualización de usuario
-        echo json_encode(['message' => 'PUT method not implemented yet'], JSON_UNESCAPED_UNICODE);
+        $id = $_GET['id'] ?? null;
+
+        try {
+            parse_str(file_get_contents("php://input"), $data); // Recoger datos de la solicitud PUT
+
+            $user = new User(
+                $data['email'] ?? '',
+                $data['username'] ?? '',
+                $data['password'] ?? '',
+                $data['name'] ?? '',
+                $data['lastname'] ?? '',
+                $data['telephone'] ?? '',
+                $data['gender'] ?? 'MALE',
+                $id
+            );
+
+            $result = $controller->updateUser($user);
+
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'User updated successfully',
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Error updating user'
+                ], JSON_UNESCAPED_UNICODE);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error updating user: ' . $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+        }
         break;
 
     case 'DELETE':

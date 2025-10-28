@@ -94,7 +94,35 @@ async function deleteUser(event) {
   }
 }
 
-async function saveChanges(event) {}
+async function saveChanges(event) {
+  const select = document.getElementById("userSelect");
+  const selectId = select.value;
+
+  event.preventDefault();
+
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(selectId)}`,
+      {
+        method: "PUT",
+        body: new URLSearchParams(formData), // Convertir FormData a URLSearchParams porque usamos PUT
+      }
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if (result.success) {
+      await uploadUsers();
+    }
+  } catch (error) {
+    alert("Error saving changes: " + error.message);
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");

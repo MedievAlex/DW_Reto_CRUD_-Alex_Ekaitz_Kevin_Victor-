@@ -38,4 +38,9 @@ class Controller
     {
         return $this->dBImplementation->deleteUser($id);
     }
+
+    public function updateUser($user)
+    {
+        return $this->dBImplementation->updateUser($user);
+    }
 }
