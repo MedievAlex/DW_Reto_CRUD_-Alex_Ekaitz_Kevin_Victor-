@@ -37,17 +37,9 @@ function showUsersData() {
   const select = document.getElementById("userSelect");
   const selectId = select.value;
 
-  if (!selectId) {
-    document.getElementById("username").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("name").value = "";
-    document.getElementById("lastname").value = "";
-    document.getElementById("telephone").value = "";
+  document.querySelector("form").reset();
 
-    document.getElementById("deleteUserButton").disabled = true;
-    document.getElementById("saveChangesButton").disabled = true;
-  } else {
+  if (selectId) {
     const user = usersData.find((u) => u.id == selectId);
     if (user) {
       document.getElementById("username").value = user.username;
@@ -63,9 +55,12 @@ function showUsersData() {
 
     document.getElementById("deleteUserButton").disabled = false;
     document.getElementById("saveChangesButton").disabled = false;
-
-    //selectedUserData = [user.username, user.email, user.password, user.name, user.lastname, user.telephone]; //para activar el boton de guardar cambios
+  } else {
+    document.getElementById("deleteUserButton").disabled = true;
+    document.getElementById("saveChangesButton").disabled = true;
   }
+
+  //selectedUserData = [user.username, user.email, user.password, user.name, user.lastname, user.telephone];
 }
 
 async function deleteUser(event) {
