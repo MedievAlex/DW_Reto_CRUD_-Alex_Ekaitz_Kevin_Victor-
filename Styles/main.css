@@ -52,11 +52,6 @@ main {
   background-color: lightgray;
 }
 
-i {
-  cursor: pointer;
-  margin-left: -210px;
-}
-
 button,
 input[type="reset"] {
   width: 40%;

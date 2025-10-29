@@ -38,12 +38,14 @@
       </div>
       <div class="inputs">
         <label for="password">PASSWORD</label>
-        <input type="password" id="password" name="password" />
-        <i id="visibilityButton">
-          <span id="icon" class="material-symbols-outlined">
-            visibility
-          </span>
-        </i>
+        <div class="password-container">
+          <input type="password" id="password" name="password" />
+          <button type="button" id="visibilityButton">
+            <span id="icon" class="material-symbols-outlined">
+              visibility
+            </span>
+          </button>
+        </div>
       </div>
       <div class="inputs">
         <label for="name">NAME</label>
@@ -59,14 +61,16 @@
       </div>
       <div class="inputs">
         <label for="gender">GENDER</label>
-        <input type="radio" name="gender" id="male" value="MALE">
-        <label for="male">Male</label>
+        <div class="gender-options">
+          <input type="radio" name="gender" id="male" value="MALE">
+          <label for="male">Male</label>
 
-        <input type="radio" name="gender" id="female" value="FEMALE">
-        <label for="female">Female</label>
+          <input type="radio" name="gender" id="female" value="FEMALE">
+          <label for="female">Female</label>
 
-        <input type="radio" name="gender" id="other" value="OTHER">
-        <label for="other">Other</label>
+          <input type="radio" name="gender" id="other" value="OTHER">
+          <label for="other">Other</label>
+        </div>
       </div>
       <div class="buttons">
         <button id="deleteUserButton">DELETE USER</button>
