@@ -8,6 +8,7 @@ async function uploadUsers() {
     const select = document.getElementById("userSelect");
 
     select.innerHTML = "";
+    document.querySelector("form").reset();
 
     if (!users || users.length === 0) {
       select.innerHTML =
@@ -87,7 +88,7 @@ async function deleteUser(event) {
 
     if (result.success) {
       await uploadUsers();
-      showUsersData();
+      document.querySelector("form").reset();
     }
   } catch (error) {
     alert("Error deleting user:", error);
@@ -118,6 +119,7 @@ async function saveChanges(event) {
 
     if (result.success) {
       await uploadUsers();
+      document.querySelector("form").reset();
     }
   } catch (error) {
     alert("Error saving changes: " + error.message);
