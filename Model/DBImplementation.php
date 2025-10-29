@@ -99,12 +99,10 @@ class DBImplementation
     public function updateUser($user)
     {
         try {
-            $queryProfile = "UPDATE db_profile SET P_EMAIL = ?, P_USERNAME = ?, P_PASSWORD = ?, P_NAME = ?, P_LASTNAME = ?, P_TELEPHONE = ? WHERE P_ID = ?";
+            $queryProfile = "UPDATE db_profile SET P_PASSWORD = ?, P_NAME = ?, P_LASTNAME = ?, P_TELEPHONE = ? WHERE P_ID = ?";
 
             $stmtProfile = $this->conn->prepare($queryProfile);
             $successProfile = $stmtProfile->execute([
-                $user->getEmail(),
-                $user->getUsername(),
                 $user->getPassword(),
                 $user->getName(),
                 $user->getLastname(),
