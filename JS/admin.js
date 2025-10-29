@@ -8,7 +8,6 @@ async function uploadUsers() {
     const select = document.getElementById("userSelect");
 
     select.innerHTML = "";
-    document.querySelector("form").reset();
 
     if (!users || users.length === 0) {
       select.innerHTML =
