@@ -125,6 +125,18 @@ async function saveChanges(event) {
   }
 }
 
+function toggleVisibility() {
+  const passwordInput = document.getElementById("password");
+  const icon = document.getElementById("icon");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.textContent = "visibility_off";
+  } else {
+    passwordInput.type = "password";
+    icon.textContent = "visibility";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {
@@ -139,6 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.getItem("username");
 
   uploadUsers();
+
+  document.getElementById("visibilityButton").addEventListener("click", () => {
+    toggleVisibility();
+  });
 
   document
     .getElementById("userSelect")
