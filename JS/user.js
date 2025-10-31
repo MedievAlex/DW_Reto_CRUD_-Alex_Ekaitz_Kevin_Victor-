@@ -61,23 +61,30 @@ async function saveChanges(event) {
 
   event.preventDefault();
 
-  const form = document.querySelector("form");
-  const formData = new FormData(form);
+  pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
 
-  try {
-    const response = await fetch(
-      `../Api/User.php?id=${encodeURIComponent(userId)}`,
-      {
-        method: "PUT",
-        body: new URLSearchParams(formData), // Convertir FormData a URLSearchParams porque usamos PUT
-      }
-    );
+  if (pattern.test(document.getElementById("password").value)) { // Verifyes if the password matches the pattern
+    const form = document.querySelector("form");
+    const formData = new FormData(form);
 
-    const result = await response.json();
+    try {
+      const response = await fetch(
+        `../Api/User.php?id=${encodeURIComponent(userId)}`,
+        {
+          method: "PUT",
+          body: new URLSearchParams(formData), // Converts FormData to URLSearchParams because we use PUT
+        }
+      );
 
-    alert(result.message);
-  } catch (error) {
-    alert("Error saving changes:", error);
+      const result = await response.json();
+
+      alert(result.message);
+    } catch (error) {
+      alert("Error saving changes:", error);
+    }
+  }
+  else {
+    alert("Password must have at least 8 characters and contain one letter and one number.")
   }
 }
 
