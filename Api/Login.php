@@ -8,9 +8,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 $controller = new Controller();
 
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $controller->login($credential, $password);
 
     if ($result) {
+      http_response_code(200);
       echo json_encode([
         'success' => true,
         'message' => 'Login successful',
@@ -32,11 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]
       ], JSON_UNESCAPED_UNICODE);
     } else {
+      http_response_code(401);
       echo json_encode(['success' => false, 'message' => 'Invalid credentials'], JSON_UNESCAPED_UNICODE);
     }
   } catch (Exception $e) {
+    http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
   }
 } else {
-  echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+  http_response_code(405);
+  echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
 }
