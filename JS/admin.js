@@ -1,26 +1,24 @@
 let usersData = [];
-//let selectedUserData = [];//para activar el boton de guardar cambios
 
 async function uploadUsers() {
   try {
     const response = await fetch("../Api/Users.php");
-    const users = await response.json();
+    const result = await response.json();
     const select = document.getElementById("userSelect");
 
     select.innerHTML = "";
 
-    if (!users || users.length === 0) {
+    if (response.status === 404) {
       select.innerHTML =
         '<option value="" selected>-- No users available --</option>';
-
       document.getElementById("deleteUserButton").disabled = true;
       document.getElementById("saveChangesButton").disabled = true;
     } else {
       select.innerHTML =
         '<option value="" selected>-- Choose an user --</option>';
-      usersData = users;
+      usersData = result.users;
 
-      users.forEach((user) => {
+      result.users.forEach((user) => {
         const option = document.createElement("option");
         option.value = user.id;
         option.textContent = user.name + " (" + user.email + ")";
@@ -59,8 +57,6 @@ function showUsersData() {
     document.getElementById("deleteUserButton").disabled = true;
     document.getElementById("saveChangesButton").disabled = true;
   }
-
-  //selectedUserData = [user.username, user.email, user.password, user.name, user.lastname, user.telephone];
 }
 
 async function deleteUser(event) {
@@ -90,7 +86,7 @@ async function deleteUser(event) {
       document.querySelector("form").reset();
     }
   } catch (error) {
-    alert("Error deleting user:", error);
+    alert("Error deleting user:" + error.message);
   }
 }
 
@@ -102,7 +98,8 @@ async function saveChanges(event) {
 
   pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
 
-  if (pattern.test(document.getElementById("password").value)) { // Verifyes if the password matches the pattern
+  if (pattern.test(document.getElementById("password").value)) {
+    // Verifyes if the password matches the pattern
     const form = document.querySelector("form");
     const formData = new FormData(form);
 
@@ -126,9 +123,10 @@ async function saveChanges(event) {
     } catch (error) {
       alert("Error saving changes: " + error.message);
     }
-  }
-  else {
-    alert("Password must have at least 8 characters and contain one letter and one number.")
+  } else {
+    alert(
+      "Password must have at least 8 characters and contain one letter and one number."
+    );
   }
 }
 
