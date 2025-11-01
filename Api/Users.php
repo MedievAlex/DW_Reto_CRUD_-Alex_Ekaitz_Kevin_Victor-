@@ -10,9 +10,10 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Headers: Content-Type');
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    try {
-        $controller = new Controller();
+try {
+    $controller = new Controller();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $users = $controller->getAllUsers();
 
         if ($users && count($users) > 0) {
@@ -35,14 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             http_response_code(404);
             echo json_encode(['success' => false, 'message' => 'No users found'], JSON_UNESCAPED_UNICODE);
         }
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error retrieving users: ' . $e->getMessage()
-        ], JSON_UNESCAPED_UNICODE);
+    } else {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
     }
-} else {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Server error: ' . $e->getMessage()
+    ], JSON_UNESCAPED_UNICODE);
 }

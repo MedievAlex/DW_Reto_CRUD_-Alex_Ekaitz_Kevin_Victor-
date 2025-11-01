@@ -12,13 +12,13 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
 
 $method = $_SERVER['REQUEST_METHOD'];
-$controller = new Controller();
 
-switch ($method) {
-    case 'GET':
-        $id = $_GET['id'] ?? null;
+try {
+    $controller = new Controller();
 
-        try {
+    switch ($method) {
+        case 'GET':
+            $id = $_GET['id'] ?? null;
             $user = $controller->getUser($id);
 
             if ($user) {
@@ -41,51 +41,53 @@ switch ($method) {
                 http_response_code(404);
                 echo json_encode(['success' => false, 'message' => 'User not found'], JSON_UNESCAPED_UNICODE);
             }
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Error getting user: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
-        }
-        break;
+            break;
 
-    case 'POST':
-        try {
-            $user = new User(
-                $_POST['email'] ?? '',
-                $_POST['username'] ?? '',
-                $_POST['password'] ?? '',
-                $_POST['name'] ?? '',
-                $_POST['lastname'] ?? '',
-                $_POST['telephone'] ?? '',
-                $_POST['gender'] ?? 'MALE'
-            );
+        case 'POST':
+            try {
+                $user = new User(
+                    $_POST['email'] ?? '',
+                    $_POST['username'] ?? '',
+                    $_POST['password'] ?? '',
+                    $_POST['name'] ?? '',
+                    $_POST['lastname'] ?? '',
+                    $_POST['telephone'] ?? '',
+                    $_POST['gender'] ?? 'MALE'
+                );
 
-            $result = $controller->createUser($user);
+                $result = $controller->createUser($user);
 
-            if ($result) {
-                http_response_code(201);
+                if ($result) {
+                    http_response_code(201);
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'User created successfully',
+                        'user' => [
+                            'id' => $result->getId(),
+                            'username' => $result->getUsername(),
+                        ]
+                    ], JSON_UNESCAPED_UNICODE);
+                }
+            } catch (Exception $e) {
+                $message = $e->getMessage();
+                if (
+                    strpos($message, 'already exists') !== false
+                ) {
+                    http_response_code(409);
+                } else {
+                    http_response_code(500);
+                }
+
                 echo json_encode([
-                    'success' => true,
-                    'message' => 'User created successfully',
-                    'user' => [
-                        'id' => $result->getId(),
-                        'username' => $result->getUsername(),
-                    ]
+                    'success' => false,
+                    'message' => $message
                 ], JSON_UNESCAPED_UNICODE);
-            } else {
-                http_response_code(400);
-                echo json_encode(['success' => false, 'message' => 'Error creating user'], JSON_UNESCAPED_UNICODE);
             }
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Error creating user: ' . $e->getMessage()], JSON_UNESCAPED_UNICODE);
-        }
-        break;
+            break;
 
-    case 'PUT':
-        $id = $_GET['id'] ?? null;
-
-        try {
-            parse_str(file_get_contents('php://input'), $data); // Recoger datos de la solicitud PUT
+        case 'PUT':
+            $id = $_GET['id'] ?? null;
+            parse_str(file_get_contents('php://input'), $data);
 
             $user = new User(
                 $data['email'] ?? '',
@@ -113,19 +115,10 @@ switch ($method) {
                     'message' => 'Error updating user'
                 ], JSON_UNESCAPED_UNICODE);
             }
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error updating user: ' . $e->getMessage()
-            ], JSON_UNESCAPED_UNICODE);
-        }
-        break;
+            break;
 
-    case 'DELETE':
-        $id = $_GET['id'] ?? null;
-
-        try {
+        case 'DELETE':
+            $id = $_GET['id'] ?? null;
             $result = $controller->deleteUser($id);
 
             if ($result) {
@@ -141,17 +134,17 @@ switch ($method) {
                     'message' => 'User not found or could not be deleted'
                 ], JSON_UNESCAPED_UNICODE);
             }
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error deleting user: ' . $e->getMessage()
-            ], JSON_UNESCAPED_UNICODE);
-        }
-        break;
+            break;
 
-    default:
-        http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
-        break;
+        default:
+            http_response_code(405);
+            echo json_encode(['success' => false, 'message' => 'Method not allowed'], JSON_UNESCAPED_UNICODE);
+            break;
+    }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Server error: ' . $e->getMessage()
+    ], JSON_UNESCAPED_UNICODE);
 }
