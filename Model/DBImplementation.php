@@ -1,5 +1,6 @@
 <?php
 require_once 'User.php';
+require_once 'Admin.php';
 
 class DBImplementation
 {
@@ -13,8 +14,7 @@ class DBImplementation
     private function findProfileByCredential($credential)
     {
         try {
-            $query = "SELECT P_ID, P_EMAIL, P_USERNAME, P_PASSWORD FROM db_profile WHERE P_EMAIL = ? OR
-            P_USERNAME = ?";
+            $query = "SELECT P_ID, P_EMAIL, P_USERNAME, P_PASSWORD FROM db_profile WHERE P_EMAIL = ? OR P_USERNAME = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$credential, $credential]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -46,6 +46,28 @@ class DBImplementation
         }
     }
 
+    private function checkCredentialsExistence($email, $username)
+    {
+        try {
+            $query = "SELECT P_EMAIL, P_USERNAME FROM db_profile WHERE P_EMAIL = ? OR P_USERNAME = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$email, $username]);
+
+            $exists = ['email' => false, 'username' => false];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                if ($email === $row['P_EMAIL']) {
+                    $exists['email'] = true;
+                }
+                if ($username === $row['P_USERNAME']) {
+                    $exists['username'] = true;
+                }
+            }
+            return $exists;
+        } catch (Exception $e) {
+            throw new Exception("Error checking credentials: " . $e->getMessage());
+        }
+    }
+
     public function login($credential, $password)
     {
         try {
@@ -61,6 +83,44 @@ class DBImplementation
             return $this->findProfileByType($profile['P_ID']);
         } catch (Exception $e) {
             throw new Exception("Login error: " . $e->getMessage());
+        }
+    }
+
+    public function createUser($user)
+    {
+        try {
+            $existing = $this->checkCredentialsExistence($user->getEmail(), $user->getUsername());
+
+            if ($existing['email'] && $existing['username']) {
+                throw new Exception("Both email and username already exists");
+            } elseif ($existing['email']) {
+                throw new Exception("Email already exists");
+            } elseif ($existing['username']) {
+                throw new Exception("Username already exists");
+            }
+
+            $query = "INSERT INTO db_profile (P_EMAIL, P_USERNAME, P_PASSWORD, P_NAME, P_LASTNAME, P_TELEPHONE) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([
+                $user->getEmail(),
+                $user->getUsername(),
+                $user->getPassword(),
+                $user->getName(),
+                $user->getLastname(),
+                $user->getTelephone()
+            ]);
+
+            $lastInsertId = $this->conn->lastInsertId();
+
+            $query = "INSERT INTO db_user (U_ID, U_GENDER) VALUES (?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$lastInsertId, $user->getGender()]);
+
+            $user->setId($lastInsertId);
+
+            return $user;
+        } catch (Exception $e) {
+            throw new Exception("Error creating user: " . $e->getMessage());
         }
     }
 
@@ -97,45 +157,6 @@ class DBImplementation
             return $users;
         } catch (Exception $e) {
             throw new Exception("Error getting all users: " . $e->getMessage());
-        }
-    }
-
-    public function createUser($user)
-    {
-        try {
-            $existingEmail = $this->findProfileByCredential($user->getEmail());
-            $existingUsername = $this->findProfileByCredential($user->getUsername());
-
-            if ($existingEmail && $existingUsername) {
-                throw new Exception("Both email and username already exists");
-            } elseif ($existingEmail) {
-                throw new Exception("Email already exists");
-            } elseif ($existingUsername) {
-                throw new Exception("Username already exists");
-            }
-
-            $query = "INSERT INTO db_profile (P_EMAIL, P_USERNAME, P_PASSWORD, P_NAME, P_LASTNAME, P_TELEPHONE) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([
-                $user->getEmail(),
-                $user->getUsername(),
-                $user->getPassword(),
-                $user->getName(),
-                $user->getLastname(),
-                $user->getTelephone()
-            ]);
-
-            $lastInsertId = $this->conn->lastInsertId();
-
-            $query = "INSERT INTO db_user (U_ID, U_GENDER) VALUES (?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$lastInsertId, $user->getGender()]);
-
-            $user->setId($lastInsertId);
-
-            return $user;
-        } catch (Exception $e) {
-            throw new Exception("Error creating user: " . $e->getMessage());
         }
     }
 
