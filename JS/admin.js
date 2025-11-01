@@ -8,7 +8,7 @@ async function uploadUsers() {
 
     select.innerHTML = "";
 
-    if (response.status === 404) {
+    if (response.status === 404 || response.status === 500) {
       select.innerHTML =
         '<option value="" selected>-- No users available --</option>';
       document.getElementById("deleteUserButton").disabled = true;
@@ -26,7 +26,6 @@ async function uploadUsers() {
       });
     }
   } catch (error) {
-    console.error("Error fetching users:", error);
     alert("Error loading users: " + error.message);
   }
 }
@@ -146,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {
     window.location.href = "../index.html";
-    return; // Para que no ejecute el resto del código
+    return;
   } else if (type === "user") {
     window.location.href = "user.html";
     return;

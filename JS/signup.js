@@ -2,8 +2,8 @@ async function createUser(event) {
   event.preventDefault();
 
   pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
-	
-  if (pattern.test(document.getElementById("password").value)) { // Verifyes if the password matches the pattern
+
+  if (pattern.test(document.getElementById("password").value)) {
     const form = document.getElementById("signup-form");
     const formData = new FormData(form);
 
@@ -21,14 +21,15 @@ async function createUser(event) {
         localStorage.setItem("username", result.user.username);
         window.location.href = "user.html";
       } else {
-        alert("Error: " + result.message);
+        alert(result.message);
       }
     } catch (error) {
       alert("An error occurred while creating the user.");
     }
-  }
-  else {
-    alert("Password must have at least 8 characters and contain one letter and one number.")
+  } else {
+    alert(
+      "Password must have at least 8 characters and contain one letter and one number."
+    );
   }
 }
 

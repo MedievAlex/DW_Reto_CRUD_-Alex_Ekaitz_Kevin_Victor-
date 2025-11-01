@@ -10,97 +10,152 @@ class DBImplementation
         $this->conn = $db;
     }
 
+    private function findProfileByCredential($credential)
+    {
+        try {
+            $query = "SELECT P_ID, P_EMAIL, P_USERNAME, P_PASSWORD FROM db_profile WHERE P_EMAIL = ? OR
+            P_USERNAME = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$credential, $credential]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            throw new Exception("Error finding profile: " . $e->getMessage());
+        }
+    }
+
+    private function findProfileByType($profileId)
+    {
+        try {
+            $query = "SELECT * FROM db_profile p JOIN db_user u ON p.P_ID=u.U_ID WHERE p.P_ID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$profileId]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row) {
+                return new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
+            }
+
+            $query = "SELECT * FROM db_profile p JOIN db_admin a ON p.P_ID=a.A_ID WHERE p.P_ID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$profileId]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return new Admin($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['P_ID']);
+        } catch (Exception $e) {
+            throw new Exception("Error finding profile type: " . $e->getMessage());
+        }
+    }
+
     public function login($credential, $password)
     {
-        $query = "SELECT * FROM db_profile p JOIN db_user u on p.P_ID=u.U_ID WHERE (p.P_EMAIL = ? OR p.P_USERNAME = ?) AND p.P_PASSWORD = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$credential, $credential, $password]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        try {
+            $profile = $this->findProfileByCredential($credential);
+            if (!$profile) {
+                return null;
+            }
 
-        if ($row) {
-            return new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
+            if ($profile['P_PASSWORD'] !== $password) {
+                return null;
+            }
+
+            return $this->findProfileByType($profile['P_ID']);
+        } catch (Exception $e) {
+            throw new Exception("Login error: " . $e->getMessage());
         }
-
-        $query = "SELECT * FROM db_profile p JOIN db_admin a on p.P_ID=a.A_ID WHERE (p.P_EMAIL = ? OR p.P_USERNAME = ?) AND p.P_PASSWORD = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$credential, $credential, $password]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($row) {
-            return new Admin($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['P_ID']);
-        }
-
-        return null;
     }
 
     public function getUser($id)
     {
-        $query = "SELECT * FROM db_profile p JOIN db_user u on p.P_ID=u.U_ID WHERE p.P_ID = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        try {
+            $query = "SELECT * FROM db_profile p JOIN db_user u on p.P_ID=u.U_ID WHERE p.P_ID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
-            return new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
-        } else {
-            return null;
+            if ($row) {
+                return new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            throw new Exception("Error getting user: " . $e->getMessage());
         }
     }
 
     public function getAllUsers()
     {
-        $query = "SELECT * FROM db_profile p JOIN db_user u on p.P_ID=u.U_ID";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        try {
+            $query = "SELECT * FROM db_profile p JOIN db_user u on p.P_ID=u.U_ID";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
 
-        $users = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
+            $users = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $users[] = new User($row['P_EMAIL'], $row['P_USERNAME'], $row['P_PASSWORD'], $row['P_NAME'], $row['P_LASTNAME'], $row['P_TELEPHONE'], $row['U_GENDER'], $row['P_ID']);
+            }
+
+            return $users;
+        } catch (Exception $e) {
+            throw new Exception("Error getting all users: " . $e->getMessage());
         }
-
-        return $users;
     }
 
     public function createUser($user)
     {
-        $query = "INSERT INTO db_profile (P_EMAIL, P_USERNAME, P_PASSWORD, P_NAME, P_LASTNAME, P_TELEPHONE) VALUES (?, ?, ?, ?, ?, ?);";
+        try {
+            $existingEmail = $this->findProfileByCredential($user->getEmail());
+            $existingUsername = $this->findProfileByCredential($user->getUsername());
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([
-            $user->getEmail(),
-            $user->getUsername(),
-            $user->getPassword(),
-            $user->getName(),
-            $user->getLastname(),
-            $user->getTelephone()
-        ]);
+            if ($existingEmail && $existingUsername) {
+                throw new Exception("Both email and username already exists");
+            } elseif ($existingEmail) {
+                throw new Exception("Email already exists");
+            } elseif ($existingUsername) {
+                throw new Exception("Username already exists");
+            }
 
-        $lastInsertId = $this->conn->lastInsertId();
+            $query = "INSERT INTO db_profile (P_EMAIL, P_USERNAME, P_PASSWORD, P_NAME, P_LASTNAME, P_TELEPHONE) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([
+                $user->getEmail(),
+                $user->getUsername(),
+                $user->getPassword(),
+                $user->getName(),
+                $user->getLastname(),
+                $user->getTelephone()
+            ]);
 
-        $query = "INSERT INTO db_user (U_ID, U_GENDER) VALUES (?, ?);";
+            $lastInsertId = $this->conn->lastInsertId();
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$lastInsertId, $user->getGender()]);
+            $query = "INSERT INTO db_user (U_ID, U_GENDER) VALUES (?, ?)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$lastInsertId, $user->getGender()]);
 
-        $user->setId($lastInsertId);
+            $user->setId($lastInsertId);
 
-        return $user;
+            return $user;
+        } catch (Exception $e) {
+            throw new Exception("Error creating user: " . $e->getMessage());
+        }
     }
 
     public function deleteUser($id)
     {
-        $query = "DELETE FROM db_profile WHERE P_ID = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$id]);
+        try {
+            $query = "DELETE FROM db_profile WHERE P_ID = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
 
-        return $stmt->rowCount() > 0;
+            return $stmt->rowCount() > 0;
+        } catch (Exception $e) {
+            throw new Exception("Error deleting user: " . $e->getMessage());
+        }
     }
 
     public function updateUser($user)
     {
         try {
             $queryProfile = "UPDATE db_profile SET P_PASSWORD = ?, P_NAME = ?, P_LASTNAME = ?, P_TELEPHONE = ? WHERE P_ID = ?";
-
             $stmtProfile = $this->conn->prepare($queryProfile);
             $successProfile = $stmtProfile->execute([
                 $user->getPassword(),
@@ -111,7 +166,6 @@ class DBImplementation
             ]);
 
             $queryUser = "UPDATE db_user SET U_GENDER = ? WHERE U_ID = ?";
-
             $stmtUser = $this->conn->prepare($queryUser);
             $successUser = $stmtUser->execute([
                 $user->getGender(),
@@ -120,8 +174,7 @@ class DBImplementation
 
             return $successProfile && $successUser;
         } catch (Exception $e) {
-            error_log("Error in updateUser: " . $e->getMessage());
-            return false;
+            throw new Exception("Error updating user: " . $e->getMessage());
         }
     }
 }

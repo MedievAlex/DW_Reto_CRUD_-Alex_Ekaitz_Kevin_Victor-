@@ -18,11 +18,16 @@ async function showUserData() {
       document.querySelector(
         `input[name="gender"][value="${result.user.gender}"]`
       ).checked = true;
+
+      document.getElementById("deleteUserButton").disabled = false;
+      document.getElementById("saveChangesButton").disabled = false;
     } else {
       alert(result.message);
+      document.getElementById("deleteUserButton").disabled = true;
+      document.getElementById("saveChangesButton").disabled = true;
     }
   } catch (error) {
-    alert("Error fetching user data:", error);
+    alert("Error fetching user data:" + error.message);
   }
 }
 
@@ -52,7 +57,7 @@ async function deleteUser(event) {
       window.location.href = "../index.html";
     }
   } catch (error) {
-    alert("Error deleting user:", error);
+    alert("Error deleting user:" + error.message);
   }
 }
 
@@ -63,7 +68,8 @@ async function saveChanges(event) {
 
   pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
 
-  if (pattern.test(document.getElementById("password").value)) { // Verifyes if the password matches the pattern
+  if (pattern.test(document.getElementById("password").value)) {
+    // Verifyes if the password matches the pattern
     const form = document.querySelector("form");
     const formData = new FormData(form);
 
@@ -80,11 +86,12 @@ async function saveChanges(event) {
 
       alert(result.message);
     } catch (error) {
-      alert("Error saving changes:", error);
+      alert("Error saving changes:" + error.message);
     }
-  }
-  else {
-    alert("Password must have at least 8 characters and contain one letter and one number.")
+  } else {
+    alert(
+      "Password must have at least 8 characters and contain one letter and one number."
+    );
   }
 }
 
@@ -104,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {
     window.location.href = "../index.html";
-    return; // Para que no ejecute el resto del código
+    return;
   } else if (type === "admin") {
     window.location.href = "admin.html";
     return;
