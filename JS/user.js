@@ -66,7 +66,7 @@ async function saveChanges(event) {
 
   event.preventDefault();
 
-  pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
+  pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   if (pattern.test(document.getElementById("password").value)) {
     // Verifyes if the password matches the pattern

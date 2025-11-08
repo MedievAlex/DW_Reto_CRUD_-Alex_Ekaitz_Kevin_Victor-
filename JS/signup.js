@@ -1,7 +1,7 @@
 async function createUser(event) {
   event.preventDefault();
 
-  pattern = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/;
+  pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   if (pattern.test(document.getElementById("password").value)) {
     const form = document.getElementById("signup-form");
