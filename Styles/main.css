@@ -50,6 +50,126 @@ main {
   padding: 20px;
   height: auto;
   background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 10px;
+}
+
+form .material-symbols-outlined {
+  display: none;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name-lastname {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputs-name-lastname {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.inputs-name-lastname .inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.inputs input {
+  width: 50%;
+  height: 28px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 0 0.5em;
+  font-size: 1.1rem;
+}
+
+.gender-options {
+  font-size: 1.2rem;
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  padding-top: 15px;
+  max-width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+}
+
+.password-container {
+  position: relative;
+  flex: 0 0 50%;
+}
+
+.password-container input {
+  width: 100%;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 2.5em 0 0.5em;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.password-container .material-symbols-outlined{
+  display: inline-block;
+}
+
+#visibilityButton {
+  position: absolute;
+  top: 50%;
+  right: 0.5em;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.1em;
+  width: 1.1em;
+  padding: 0 2% 0 0;
+}
+
+#icon {
+  font-size: 2em;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+#visibilityButton:hover #icon {
+  color: #000;
+}
+
+#logoutIcon {
+  font-size: 2em;
+}
+
+#logoutLink:hover #logoutIcon {
+  color: #ffffff;
 }
 
 button,
@@ -71,4 +191,113 @@ footer {
   background-color: #aca9ff;
   border-top: 2px solid black;
   font-size: 1.3em;
+}
+
+/* ------------------------------
+  RESPONSIVE DESIGN
+--------------------------------*/
+
+/* Tablet (hasta 1024px) */
+@media (max-width: 1024px) {
+  form {
+    width: 50%;
+    margin: 10px auto;
+  }
+
+  .inputs label {
+    font-size: 1rem;
+  }
+
+  .inputs input {
+    width: 55%;
+  }
+
+  .password-container {
+    flex: 0 0 55%;
+  }
+  
+  .password-container input {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttons button{
+    width: 100%;
+  }
+
+  #logoutIcon {
+    font-size: 1.8em;
+  }
+}
+
+/* Móviles (hasta 768px) */
+@media (max-width: 768px) {
+  main {
+    gap: 20px;
+    padding: 10px;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  form .material-symbols-outlined {
+    display: inline-block;
+    font-size: 2rem;
+  }
+
+  .inputs{
+    gap: 40px;
+  }
+
+  .inputs label {
+    display: none;
+  }
+
+  .inputs input {
+    width: 100%;
+    font-size: 0.8rem;
+    height: 40px;
+  }
+
+  .password-container {
+    flex: 1;
+  }
+
+  .name-lastname {
+    gap: 40px;
+    justify-content: space-between;
+  }
+
+  .inputs-name-lastname{
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .inputs-name-lastname .inputs input {
+    width: 100%;
+  }
+
+  .gender-options {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttons button {
+    width: 100%;
+    height: 40px;
+  }
+
+  #logoutIcon {
+    font-size: 1.6em;
+  }
 }
