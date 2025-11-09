@@ -22,7 +22,11 @@
     </div>
     <div class="user">
       <span id="profile"></span>
-      <a href="#" id="logoutLink">LOG OUT</a>
+      <a href="#" id="logoutLink">
+        <span id="logoutIcon" class="material-symbols-outlined">
+          exit_to_app
+        </span>
+      </a>
     </div>
 
   </header>
@@ -30,14 +34,23 @@
     <form>
       <div class="inputs">
         <label for="username">USERNAME</label>
+        <span class="material-symbols-outlined">
+          account_circle
+        </span>
         <input type="text" id="username" name="username" readonly />
       </div>
       <div class="inputs">
         <label for="email">EMAIL</label>
+        <span class="material-symbols-outlined">
+          mail
+        </span>
         <input type="email" id="email" name="email" readonly />
       </div>
       <div class="inputs">
         <label for="password">PASSWORD</label>
+        <span class="material-symbols-outlined">
+            lock
+          </span>
         <div class="password-container">
           <input type="password" id="password" name="password" />
           <button type="button" id="visibilityButton">
@@ -47,27 +60,42 @@
           </button>
         </div>
       </div>
-      <div class="inputs">
-        <label for="name">NAME</label>
-        <input type="text" id="name" name="name" />
-      </div>
-      <div class="inputs">
-        <label for="lastname">LASTNAME</label>
-        <input type="text" id="lastname" name="lastname" />
+      <div class="name-lastname">
+        <div class="icon-name-lastname">
+          <span class="material-symbols-outlined">
+            badge
+          </span>
+        </div>
+        <div class="inputs-name-lastname">
+          <div class="inputs">
+            <label for="name">NAME</label>
+            <input type="text" id="name" name="name" />
+          </div>
+          <div class="inputs">
+            <label for="lastname">LASTNAME</label>
+            <input type="text" id="lastname" name="lastname" />
+          </div>
+        </div>
       </div>
       <div class="inputs">
         <label for="telephone">TELEPHONE</label>
+        <span class="material-symbols-outlined">
+            call
+          </span>
         <input type="text" id="telephone" name="telephone" />
       </div>
-      <div class="inputs">
-        <label for="gender">GENDER</label>
-        <div class="gender-options">
+      <div class="gender-options">
+        <div class="option">
           <input type="radio" name="gender" id="male" value="MALE">
           <label for="male">Male</label>
-
+        </div>
+        
+        <div class="option">
           <input type="radio" name="gender" id="female" value="FEMALE">
           <label for="female">Female</label>
+        </div>
 
+        <div class="option">
           <input type="radio" name="gender" id="other" value="OTHER">
           <label for="other">Other</label>
         </div>

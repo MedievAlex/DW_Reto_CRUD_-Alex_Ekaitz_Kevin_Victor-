@@ -1,18 +1,16 @@
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+.login{
+  text-align: center;
+  margin-top: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  width: 20%;
-  gap: 10px;
-}
+/* ------------------------------
+  RESPONSIVE DESIGN
+--------------------------------*/
 
-.inputs {
-  display: flex;
-  justify-content: space-between;
+/* Tablet (hasta 1024px) */
+@media (max-width: 1024px) {
+  button,
+  input[type="reset"] {
+    width: 100%;
+  }
 }
