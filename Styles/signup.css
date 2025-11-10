@@ -3,14 +3,29 @@
   margin-top: 20px;
 }
 
+input[type="reset"] {
+  width: 40%;
+  background-color: #eeeeee;
+  border: 1.2px solid black;
+  border-radius: 10px;
+  padding: 2% 0;
+  cursor: pointer;
+}
+
 /* ------------------------------
   RESPONSIVE DESIGN
 --------------------------------*/
 
 /* Tablet (hasta 1024px) */
 @media (max-width: 1024px) {
-  button,
   input[type="reset"] {
     width: 100%;
+  }
+}
+
+/* Móviles (hasta 768px) */
+@media (max-width: 768px) {
+  input[type="reset"] {
+    height: 40px;
   }
 }

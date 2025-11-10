@@ -1,10 +1,27 @@
 async function createUser(event) {
   event.preventDefault();
 
+  const form = document.getElementById("signup-form");
+
+  const inputs = form.querySelectorAll("input");
+
+  let allFilled = true;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() === "") {
+      allFilled = false;
+      input.classList.add("error");
+    }
+  });
+
+  if (!allFilled) {
+    alert("Por favor, rellena todos los campos antes de continuar.");
+    return; // no continua con el envío
+  }
+
   pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   if (pattern.test(document.getElementById("password").value)) {
-    const form = document.getElementById("signup-form");
     const formData = new FormData(form);
 
     try {
@@ -33,7 +50,23 @@ async function createUser(event) {
   }
 }
 
+function toggleVisibility() {
+  const passwordInput = document.getElementById("password");
+  const icon = document.getElementById("icon");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.textContent = "visibility_off";
+  } else {
+    passwordInput.type = "password";
+    icon.textContent = "visibility";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("visibilityButton").addEventListener("click", () => {
+    toggleVisibility();
+  });
+  
   const userType = localStorage.getItem("type");
   if (userType === "admin") {
     window.location.href = "admin.html";
