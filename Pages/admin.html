@@ -47,7 +47,7 @@
         <span class="material-symbols-outlined">
           mail
         </span>
-        <input type="email" id="email" name="email" readonly />
+        <input type="email" id="email" name="email" readonly/>
       </div>
       <div class="inputs">
         <label for="password">PASSWORD</label>
@@ -55,7 +55,7 @@
             lock
           </span>
         <div class="password-container">
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" required/>
           <button type="button" id="visibilityButton">
             <span id="icon" class="material-symbols-outlined">
               visibility
@@ -72,11 +72,11 @@
         <div class="inputs-name-lastname">
           <div class="inputs">
             <label for="name">NAME</label>
-            <input type="text" id="name" name="name" />
+            <input type="text" id="name" name="name" required/>
           </div>
           <div class="inputs">
             <label for="lastname">LASTNAME</label>
-            <input type="text" id="lastname" name="lastname" />
+            <input type="text" id="lastname" name="lastname" required/>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
         <span class="material-symbols-outlined">
             call
           </span>
-        <input type="text" id="telephone" name="telephone" />
+        <input type="text" id="telephone" name="telephone" required/>
       </div>
       <div class="gender-options">
         <div class="option">
@@ -104,8 +104,8 @@
         </div>
       </div>
       <div class="buttons">
-        <button id="deleteUserButton">DELETE USER</button>
         <button id="saveChangesButton">SAVE CHANGES</button>
+        <button id="deleteUserButton">DELETE USER</button>
       </div>
     </form>
   </main>
