@@ -31,7 +31,7 @@
 
   </header>
   <main>
-    <form>
+    <form id="user-form" method="post">
       <div class="inputs">
         <label for="username">USERNAME</label>
         <span class="material-symbols-outlined">
@@ -49,10 +49,10 @@
       <div class="inputs">
         <label for="password">PASSWORD</label>
         <span class="material-symbols-outlined">
-            lock
-          </span>
+          lock
+        </span>
         <div class="password-container">
-          <input type="password" id="password" name="password" required/>
+          <input type="password" id="password" name="password" required />
           <button type="button" id="visibilityButton">
             <span id="icon" class="material-symbols-outlined">
               visibility
@@ -69,27 +69,27 @@
         <div class="inputs-name-lastname">
           <div class="inputs">
             <label for="name">NAME</label>
-            <input type="text" id="name" name="name" required/>
+            <input type="text" id="name" name="name" required />
           </div>
           <div class="inputs">
             <label for="lastname">LASTNAME</label>
-            <input type="text" id="lastname" name="lastname" required/>
+            <input type="text" id="lastname" name="lastname" required />
           </div>
         </div>
       </div>
       <div class="inputs">
         <label for="telephone">TELEPHONE</label>
         <span class="material-symbols-outlined">
-            call
-          </span>
-        <input type="text" id="telephone" name="telephone" required/>
+          call
+        </span>
+        <input type="text" id="telephone" name="telephone" required />
       </div>
       <div class="gender-options">
         <div class="option">
           <input type="radio" name="gender" id="male" value="MALE">
           <label for="male">Male</label>
         </div>
-        
+
         <div class="option">
           <input type="radio" name="gender" id="female" value="FEMALE">
           <label for="female">Female</label>
@@ -101,8 +101,8 @@
         </div>
       </div>
       <div class="buttons">
-        <button id="saveChangesButton">SAVE CHANGES</button>
-        <button id="deleteUserButton">DELETE USER</button>
+        <button type="submit" id="saveChangesButton" disabled>SAVE CHANGES</button>
+        <button type="button" id="deleteUserButton" disabled>DELETE USER</button>
       </div>
     </form>
   </main>

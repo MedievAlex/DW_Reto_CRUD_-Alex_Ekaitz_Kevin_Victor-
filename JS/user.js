@@ -23,8 +23,6 @@ async function showUserData() {
       document.getElementById("saveChangesButton").disabled = false;
     } else {
       alert(result.message);
-      document.getElementById("deleteUserButton").disabled = true;
-      document.getElementById("saveChangesButton").disabled = true;
     }
   } catch (error) {
     alert("Error fetching user data:" + error.message);
@@ -64,34 +62,40 @@ async function deleteUser(event) {
 async function saveChanges(event) {
   const userId = localStorage.getItem("id");
 
-  event.preventDefault();
-
   passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   phonePattern = /^[0-9]{9}$/;
 
   if (!passwordPattern.test(document.getElementById("password").value)) {
-    alert("Password must have at least 8 characters, containing one capital letter and one number.");
+    alert(
+      "Password must have at least 8 characters, containing one capital letter and one number."
+    );
+    event.preventDefault();
+    return;
   } else if (!phonePattern.test(document.getElementById("telephone").value)) {
     alert("Telephone number must be exactly 9 digits.");
-  } else {
-    const form = document.querySelector("form");
-    const formData = new FormData(form);
+    event.preventDefault();
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        `../Api/User.php?id=${encodeURIComponent(userId)}`,
-        {
-          method: "PUT",
-          body: new URLSearchParams(formData), // Converts FormData to URLSearchParams because we use PUT
-        }
-      );
+  event.preventDefault();
 
-      const result = await response.json();
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
 
-      alert(result.message);
-    } catch (error) {
-      alert("Error saving changes:" + error.message);
-    }
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(userId)}`,
+      {
+        method: "PUT",
+        body: new URLSearchParams(formData), // Converts FormData to URLSearchParams because we use PUT
+      }
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+  } catch (error) {
+    alert("Error saving changes:" + error.message);
   }
 }
 
@@ -138,9 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("deleteUserButton")
     .addEventListener("click", deleteUser);
 
-  document
-    .getElementById("saveChangesButton")
-    .addEventListener("click", saveChanges);
+  document.getElementById("user-form").addEventListener("submit", saveChanges);
 
   document
     .getElementById("logoutLink")

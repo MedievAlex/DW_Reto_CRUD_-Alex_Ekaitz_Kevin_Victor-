@@ -93,39 +93,45 @@ async function saveChanges(event) {
   const select = document.getElementById("userSelect");
   const selectId = select.value;
 
-  event.preventDefault();
-
   passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   phonePattern = /^[0-9]{9}$/;
 
   if (!passwordPattern.test(document.getElementById("password").value)) {
-    alert("Password must have at least 8 characters, containing one capital letter and one number.");
+    alert(
+      "Password must have at least 8 characters, containing one capital letter and one number."
+    );
+    event.preventDefault();
+    return;
   } else if (!phonePattern.test(document.getElementById("telephone").value)) {
     alert("Telephone number must be exactly 9 digits.");
-  } else {
-    const form = document.querySelector("form");
-    const formData = new FormData(form);
+    event.preventDefault();
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        `../Api/User.php?id=${encodeURIComponent(selectId)}`,
-        {
-          method: "PUT",
-          body: new URLSearchParams(formData), // Converts FormData to URLSearchParams because we use PUT
-        }
-      );
+  event.preventDefault();
 
-      const result = await response.json();
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
 
-      alert(result.message);
-
-      if (result.success) {
-        await uploadUsers();
-        document.querySelector("form").reset();
+  try {
+    const response = await fetch(
+      `../Api/User.php?id=${encodeURIComponent(selectId)}`,
+      {
+        method: "PUT",
+        body: new URLSearchParams(formData), // Converts FormData to URLSearchParams because we use PUT
       }
-    } catch (error) {
-      alert("Error saving changes: " + error.message);
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if (result.success) {
+      await uploadUsers();
+      document.querySelector("form").reset();
     }
+  } catch (error) {
+    alert("Error saving changes: " + error.message);
   }
 }
 
@@ -176,9 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("deleteUserButton")
     .addEventListener("click", deleteUser);
 
-  document
-    .getElementById("saveChangesButton")
-    .addEventListener("click", saveChanges);
+  document.getElementById("admin-form").addEventListener("submit", saveChanges);
 
   document
     .getElementById("logoutLink")

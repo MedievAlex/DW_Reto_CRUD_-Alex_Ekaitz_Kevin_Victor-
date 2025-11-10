@@ -5,7 +5,9 @@ async function createUser(event) {
   phonePattern = /^[0-9]{9}$/;
 
   if (!passwordPattern.test(document.getElementById("password").value)) {
-    alert("Password must have at least 8 characters, containing one capital letter and one number.");
+    alert(
+      "Password must have at least 8 characters, containing one capital letter and one number."
+    );
   } else if (!phonePattern.test(document.getElementById("telephone").value)) {
     alert("Telephone number must be exactly 9 digits.");
   } else {
@@ -50,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("visibilityButton").addEventListener("click", () => {
     toggleVisibility();
   });
-  
+
   const userType = localStorage.getItem("type");
   if (userType === "admin") {
     window.location.href = "admin.html";
