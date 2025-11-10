@@ -95,10 +95,14 @@ async function saveChanges(event) {
 
   event.preventDefault();
 
-  pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  phonePattern = /^[0-9]{9}$/;
 
-  if (pattern.test(document.getElementById("password").value)) {
-    // Verifyes if the password matches the pattern
+  if (!passwordPattern.test(document.getElementById("password").value)) {
+    alert("Password must have at least 8 characters, containing one capital letter and one number.");
+  } else if (!phonePattern.test(document.getElementById("telephone").value)) {
+    alert("Telephone number must be exactly 9 digits.");
+  } else {
     const form = document.querySelector("form");
     const formData = new FormData(form);
 
@@ -122,10 +126,6 @@ async function saveChanges(event) {
     } catch (error) {
       alert("Error saving changes: " + error.message);
     }
-  } else {
-    alert(
-      "Password must have at least 8 characters and contain one letter and one number."
-    );
   }
 }
 
@@ -158,6 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("visibilityButton").addEventListener("click", () => {
     toggleVisibility();
+  });
+
+  document.getElementById("telephone").addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
+
+    if (this.value.length > 9) {
+      this.value = this.value.slice(0, 9);
+    }
   });
 
   document

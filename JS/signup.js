@@ -1,27 +1,15 @@
 async function createUser(event) {
   event.preventDefault();
 
-  const form = document.getElementById("signup-form");
+  passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  phonePattern = /^[0-9]{9}$/;
 
-  const inputs = form.querySelectorAll("input");
-
-  let allFilled = true;
-
-  inputs.forEach((input) => {
-    if (input.value.trim() === "") {
-      allFilled = false;
-      input.classList.add("error");
-    }
-  });
-
-  if (!allFilled) {
-    alert("Por favor, rellena todos los campos antes de continuar.");
-    return; // no continua con el envío
-  }
-
-  pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-
-  if (pattern.test(document.getElementById("password").value)) {
+  if (!passwordPattern.test(document.getElementById("password").value)) {
+    alert("Password must have at least 8 characters, containing one capital letter and one number.");
+  } else if (!phonePattern.test(document.getElementById("telephone").value)) {
+    alert("Telephone number must be exactly 9 digits.");
+  } else {
+    const form = document.querySelector("form");
     const formData = new FormData(form);
 
     try {
@@ -43,10 +31,6 @@ async function createUser(event) {
     } catch (error) {
       alert("An error occurred while creating the user.");
     }
-  } else {
-    alert(
-      "Password must have at least 8 characters and contain one letter and one number."
-    );
   }
 }
 
