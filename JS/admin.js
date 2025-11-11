@@ -7,6 +7,8 @@ async function uploadUsers() {
     const result = await response.json();
     const select = document.getElementById("userSelect");
 
+    toggleVisibility();
+    
     document.getElementById("deleteUserButton").disabled = true;
     document.getElementById("saveChangesButton").disabled = true;
 
