@@ -97,9 +97,7 @@ async function saveChanges(event) {
   phonePattern = /^[0-9]{9}$/;
 
   if (!passwordPattern.test(document.getElementById("password").value)) {
-    alert(
-      "Password must have at least 8 characters, containing one capital letter and one number."
-    );
+    alert("Password must have at least 8 characters, containing one number and both, one captial letter and not one.");
     event.preventDefault();
     return;
   } else if (!phonePattern.test(document.getElementById("telephone").value)) {
