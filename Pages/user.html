@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!------------------------------------------- [ HEAD: Start ] ------------------------------------------->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,42 +12,49 @@
   <script src="../JS/user.js" defer></script>
   <title>User</title>
 </head>
+<!------------------------------------------- [ HEAD: End ] ------------------------------------------------>
 
+<!------------------------------------------- [ BODY: Start ] ---------------------------------------------->
 <body>
+  <!----------------------------------------- [ HEADER: Start ] -------------------------------------------->
   <header>
-    <div class="logo">
+    <div class="logo"> <!-- Logo -->
       <img src="../Images/logo.webp" alt="Logo">
     </div>
-    <div class="title">
+    <div class="title"> <!-- Title -->
       <h1>USER</h1>
     </div>
     <div class="user">
-      <span id="profile"></span>
-      <a href="#" id="logoutLink">
+      <span id="profile"></span> <!-- User (Username) -->
+      <a href="#" id="logoutLink"> <!-- Button [LOG OUT] -->
         <span id="logoutIcon" class="material-symbols-outlined">
           exit_to_app
         </span>
       </a>
     </div>
-
   </header>
+  <!------------------------------------------ [ HEADER: End ] ---------------------------------------------->
+  <!------------------------------------------ [ MAIN: Start ] ---------------------------------------------->
   <main>
     <form id="user-form" method="post">
-      <div class="inputs">
+      <!--------------------------------------- [ FORM: Username ] ------------------------------------------>
+      <div class="inputs"> <!-- Credential (Username) -->
         <label for="username">USERNAME</label>
         <span class="material-symbols-outlined">
           account_circle
         </span>
         <input type="text" id="username" name="username" readonly />
       </div>
-      <div class="inputs">
+      <!--------------------------------------- [ FORM: Email ] --------------------------------------------->
+      <div class="inputs"> <!-- Credential (Email) -->
         <label for="email">EMAIL</label>
         <span class="material-symbols-outlined">
           mail
         </span>
         <input type="email" id="email" name="email" readonly />
       </div>
-      <div class="inputs">
+      <!--------------------------------------- [ FORM: Password ] ------------------------------------------>
+      <div class="inputs"> <!-- Credential (Password) -->
         <label for="password">PASSWORD</label>
         <span class="material-symbols-outlined">
           lock
@@ -60,6 +68,7 @@
           </button>
         </div>
       </div>
+      <!-------------------------------------- [ FORM: Name & Lastname ] ----------------------------------->
       <div class="name-lastname">
         <div class="icon-name-lastname">
           <span class="material-symbols-outlined">
@@ -67,48 +76,52 @@
           </span>
         </div>
         <div class="inputs-name-lastname">
-          <div class="inputs">
+          <div class="inputs"> <!-- Credential (Name) -->
             <label for="name">NAME</label>
             <input type="text" id="name" name="name" required />
           </div>
-          <div class="inputs">
+          <div class="inputs"> <!-- Credential (Lastname) -->
             <label for="lastname">LASTNAME</label>
             <input type="text" id="lastname" name="lastname" required />
           </div>
         </div>
       </div>
-      <div class="inputs">
+      <!-------------------------------------- [ FORM: Telephone ] ----------------------------------------->
+      <div class="inputs"> <!-- Credential (Telephone) -->
         <label for="telephone">TELEPHONE</label>
         <span class="material-symbols-outlined">
           call
         </span>
         <input type="text" id="telephone" name="telephone" required />
       </div>
+      <!-------------------------------------- [ FORM: Gender ] -------------------------------------------->
       <div class="gender-options">
-        <div class="option">
+        <div class="option"> <!-- Radio Button (Male) -->
           <input type="radio" name="gender" id="male" value="MALE">
           <label for="male">Male</label>
         </div>
-
-        <div class="option">
+        <div class="option"> <!-- Radio Button (Female) -->
           <input type="radio" name="gender" id="female" value="FEMALE">
           <label for="female">Female</label>
         </div>
-
-        <div class="option">
+        <div class="option"> <!-- Radio Button (Other) -->
           <input type="radio" name="gender" id="other" value="OTHER">
           <label for="other">Other</label>
         </div>
       </div>
-      <div class="buttons">
+      <!-------------------------------------- [ FORM: Buttons ] ------------------------------------------->
+      <div class="buttons"> <!-- Buttons [SAVE CHANGES, DELETE USER] -->
         <button type="submit" id="saveChangesButton" disabled>SAVE CHANGES</button>
         <button type="button" id="deleteUserButton" disabled>DELETE USER</button>
       </div>
     </form>
   </main>
+  <!------------------------------------------- [ MAIN: End ] ----------------------------------------------->
+  <!------------------------------------------- [ FOOTER: Start ] ------------------------------------------->
   <footer>
     <span>&copy; Made by Alex, Ekaitz, Kevin & Victor</span>
   </footer>
+  <!------------------------------------------- [ FOOTER: End ] --------------------------------------------->
 </body>
-
+<!--------------------------------------------- [ BODY: End ] ----------------------------------------------->
 </html>

@@ -21,7 +21,7 @@ async function uploadUsers() {
       result.users.forEach((user) => {
         const option = document.createElement("option");
         option.value = user.id;
-        option.textContent = user.name + " (" + user.email + ")";
+        option.textContent = user.username + " (" + user.email + ")";
         select.appendChild(option);
       });
     }
