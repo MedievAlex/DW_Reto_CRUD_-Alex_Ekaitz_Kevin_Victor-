@@ -1,3 +1,4 @@
+// Creates the User
 async function createUser(event) {
   event.preventDefault();
 
@@ -34,6 +35,7 @@ async function createUser(event) {
   }
 }
 
+// Shows or hides the Password value
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
@@ -46,6 +48,7 @@ function toggleVisibility() {
   }
 }
 
+// When loading the page asigns the methods to the buttons
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("visibilityButton").addEventListener("click", () => {
     toggleVisibility();

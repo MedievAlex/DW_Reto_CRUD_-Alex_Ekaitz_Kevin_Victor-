@@ -1,3 +1,4 @@
+// Log-ins the User if the credentials are correct
 async function login(event) {
   event.preventDefault();
 
@@ -27,6 +28,7 @@ async function login(event) {
   }
 }
 
+// When loading the page asigns the methods to the buttons
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (type === "admin") {

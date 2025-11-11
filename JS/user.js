@@ -1,3 +1,4 @@
+// Shows Users data
 async function showUserData() {
   const userId = localStorage.getItem("id");
 
@@ -29,6 +30,7 @@ async function showUserData() {
   }
 }
 
+// Deletes the selected User
 async function deleteUser(event) {
   const userId = localStorage.getItem("id");
 
@@ -59,6 +61,7 @@ async function deleteUser(event) {
   }
 }
 
+// Saves the changes made on the data of the User
 async function saveChanges(event) {
   const userId = localStorage.getItem("id");
 
@@ -97,6 +100,7 @@ async function saveChanges(event) {
   }
 }
 
+// Shows or hides the Password value
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
@@ -109,6 +113,7 @@ function toggleVisibility() {
   }
 }
 
+// When loading the page asigns the methods to the buttons
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {

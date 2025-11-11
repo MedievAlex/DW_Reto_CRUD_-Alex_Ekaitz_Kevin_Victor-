@@ -1,5 +1,6 @@
 let usersData = [];
 
+// Uploads the Users in the Combobox
 async function uploadUsers() {
   try {
     const response = await fetch("../Api/Users.php");
@@ -30,6 +31,7 @@ async function uploadUsers() {
   }
 }
 
+// Shows the selected Users data
 function showUsersData() {
   const select = document.getElementById("userSelect");
   const selectId = select.value;
@@ -58,6 +60,7 @@ function showUsersData() {
   }
 }
 
+// Deletes the selected User
 async function deleteUser(event) {
   const select = document.getElementById("userSelect");
   const selectId = select.value;
@@ -89,6 +92,7 @@ async function deleteUser(event) {
   }
 }
 
+// Saves the changes made on the data of the User
 async function saveChanges(event) {
   const select = document.getElementById("userSelect");
   const selectId = select.value;
@@ -133,6 +137,7 @@ async function saveChanges(event) {
   }
 }
 
+// Shows or hides the Password value
 function toggleVisibility() {
   const passwordInput = document.getElementById("password");
   const icon = document.getElementById("icon");
@@ -145,6 +150,7 @@ function toggleVisibility() {
   }
 }
 
+// When loading the page asigns the methods to the buttons
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (!type) {
