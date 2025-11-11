@@ -48,7 +48,7 @@ function toggleVisibility() {
   }
 }
 
-// When loading the page asigns the methods to the buttons
+// When loading the page asigns the methods to the elements
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("visibilityButton").addEventListener("click", () => {
     toggleVisibility();

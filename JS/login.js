@@ -28,7 +28,7 @@ async function login(event) {
   }
 }
 
-// When loading the page asigns the methods to the buttons
+// When loading the page asigns the methods to the elements
 document.addEventListener("DOMContentLoaded", () => {
   const type = localStorage.getItem("type");
   if (type === "admin") {
