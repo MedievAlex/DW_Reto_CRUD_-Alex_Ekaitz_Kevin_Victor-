@@ -7,13 +7,14 @@ async function uploadUsers() {
     const result = await response.json();
     const select = document.getElementById("userSelect");
 
+    document.getElementById("deleteUserButton").disabled = true;
+    document.getElementById("saveChangesButton").disabled = true;
+
     select.innerHTML = "";
 
     if (response.status === 404 || response.status === 500) {
       select.innerHTML =
         '<option value="" selected>-- No users available --</option>';
-      document.getElementById("deleteUserButton").disabled = true;
-      document.getElementById("saveChangesButton").disabled = true;
     } else {
       select.innerHTML =
         '<option value="" selected>-- Choose an user --</option>';
